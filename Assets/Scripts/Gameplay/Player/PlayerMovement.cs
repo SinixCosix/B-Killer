@@ -6,7 +6,7 @@ namespace Gameplay.Player
     public class PlayerMovement : MonoBehaviour
     {
         public float speed = 10f;
-        public Rigidbody2D rigidbody;
+        public new Rigidbody2D rigidbody;
 
 
         private Vector2 _movement;
