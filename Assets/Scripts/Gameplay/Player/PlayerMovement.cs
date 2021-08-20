@@ -7,8 +7,7 @@ namespace Gameplay.Player
     {
         public float speed = 10f;
         public new Rigidbody2D rigidbody;
-
-
+        
         private Vector2 _movement;
 
         private void Update()
