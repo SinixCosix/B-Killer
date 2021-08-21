@@ -4,7 +4,7 @@ namespace Gameplay
 {
     public abstract class Character : MonoBehaviour
     {
-        public float speed = 10f;
+        public float speed = 5f;
         
         protected Vector2 TargetPosition;
         protected abstract void CalculateTargetPosition();
