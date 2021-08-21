@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.Player
+namespace Gameplay
 {
     public class Player : Character
     {
