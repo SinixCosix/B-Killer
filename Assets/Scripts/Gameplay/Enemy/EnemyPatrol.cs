@@ -24,7 +24,7 @@ namespace Gameplay.Enemy
             TargetPosition = path[PositionId].position;
         }
 
-        private void ChoosePositionIdOrWait()
+        protected void ChoosePositionIdOrWait()
         {
             if (IsTimeUp())
                 ChoosePositionId();

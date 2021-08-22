@@ -7,11 +7,6 @@ namespace Gameplay.Enemy
 {
     public class EnemyStalker : AbstractEnemy
     {
-        private void Start()
-        {
-            CalculateTargetPosition();
-        }
-
         private void Update()
         {
             CalculateTargetPosition();
