@@ -7,9 +7,8 @@ namespace Gameplay
         public float speed = 5f;
         
         protected Vector2 TargetPosition;
-        protected abstract void CalculateTargetPosition();
         
-        protected void Move()
+        protected virtual void Move()
         {
             var position = transform.position;
             position = Vector2.MoveTowards(position, TargetPosition, speed * Time.deltaTime);

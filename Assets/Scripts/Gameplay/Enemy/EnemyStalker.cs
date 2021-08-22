@@ -1,26 +1,17 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using UnityEngine;
-
-namespace Gameplay.Enemy
+﻿namespace Gameplay.Enemy
 {
     public class EnemyStalker : AbstractEnemy
     {
         private void Update()
         {
-            CalculateTargetPosition();
-            StalkPlayer();            
-        }
-
-        protected override void CalculateTargetPosition()
-        {
-            TargetPosition = path[0].position;
+            StalkPlayer();
         }
 
         private void StalkPlayer()
         {
-            if (IsOnTargetPosition())
+            TargetPosition = player.transform.position;
+
+            if (IsNextToPlayer())
                 Move();
         }
     }

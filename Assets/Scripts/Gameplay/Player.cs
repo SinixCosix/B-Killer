@@ -4,22 +4,26 @@ namespace Gameplay
 {
     public class Player : Character
     {
-        private Vector3 _direction;
+        private Vector3 _directionMovement;
 
         private void Update()
         {
-            _direction.x = Input.GetAxisRaw("Horizontal");
-            _direction.y = Input.GetAxisRaw("Vertical");
-            
-            CalculateTargetPosition();
             Move();
         }
 
-        protected override void CalculateTargetPosition()
+        protected override void Move()
         {
-            _direction *= Time.fixedDeltaTime;
-            TargetPosition = transform.position + _direction * speed;
+            CalculateDirectionMovement();
+            TargetPosition = transform.position + _directionMovement * speed;
+
+            base.Move();
         }
 
+        private void CalculateDirectionMovement()
+        {
+            _directionMovement.x = Input.GetAxisRaw("Horizontal");
+            _directionMovement.y = Input.GetAxisRaw("Vertical");
+            _directionMovement *= Time.fixedDeltaTime;
+        }
     }
 }

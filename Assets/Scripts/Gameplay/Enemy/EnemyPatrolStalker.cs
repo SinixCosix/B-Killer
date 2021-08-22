@@ -1,14 +1,13 @@
-﻿using UnityEngine;
-
-namespace Gameplay.Enemy
+﻿namespace Gameplay.Enemy
 {
-    public class EnemyStalkerPatrol : EnemyPatrol
+    public class EnemyPatrolStalker : EnemyPatrol
     {
         private void Start()
         {
             ChoosePositionId();
             ResetWaitTime();
         }
+
         private void Update()
         {
             StalkPlayerOrPatrol();
@@ -20,22 +19,11 @@ namespace Gameplay.Enemy
                 StalkPlayer();
             else
                 Patrol();
-            
         }
 
         private void StalkPlayer()
         {
             TargetPosition = player.transform.position;
-            Move();
-        }
-
-        private void Patrol()
-        {
-            TargetPosition = path[PositionId].position;
-            
-            if (IsOnTargetPosition())
-                ChoosePositionIdOrWait();
-            
             Move();
         }
     }

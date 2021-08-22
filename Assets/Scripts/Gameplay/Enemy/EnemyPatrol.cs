@@ -4,6 +4,13 @@ namespace Gameplay.Enemy
 {
     public class EnemyPatrol : AbstractEnemy
     {
+        public Transform[] patrolPath;
+        public float waitTimeOnSpotSec = 1f;
+
+        private int _spotId;
+
+        private float _waitTimeOnSpotSec;
+
         private void Start()
         {
             ChoosePositionId();
@@ -12,24 +19,42 @@ namespace Gameplay.Enemy
 
         private void Update()
         {
-            CalculateTargetPosition();
-            Move();
-
-            if (IsOnTargetPosition())
-                ChoosePositionIdOrWait();
+            Patrol();
         }
 
-        protected override void CalculateTargetPosition()
+        protected void Patrol()
         {
-            TargetPosition = path[PositionId].position;
+            TargetPosition = patrolPath[_spotId].position;
+
+            if (IsOnPathSpot())
+            {
+                ChoosePositionId();
+                Wait();
+            }
+
+            Move();
         }
 
-        protected void ChoosePositionIdOrWait()
+        private bool IsOnPathSpot()
+            => Vector2.Distance(transform.position, TargetPosition) < minTargetDistance;
+
+        protected void ChoosePositionId()
+        {
+            _spotId = Random.Range(0, patrolPath.Length);
+        }
+
+        private void Wait()
         {
             if (IsTimeUp())
-                ChoosePositionId();
-
-            Wait();
+                ResetWaitTime();
+            else
+                _waitTimeOnSpotSec -= Time.deltaTime;
         }
+
+        protected void ResetWaitTime()
+            => _waitTimeOnSpotSec = waitTimeOnSpotSec;
+
+        private bool IsTimeUp()
+            => _waitTimeOnSpotSec <= 0;
     }
 }
