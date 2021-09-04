@@ -1,17 +1,16 @@
+using Gameplay.Enemy;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class Player : Character
     {
+        public delegate void MethodContainer();
+        public event MethodContainer Death;
+        
         private Vector3 _directionMovement;
 
-        private void Update()
-        {
-            Move();
-        }
-
-        protected override void Move()
+        public override void Move()
         {
             CalculateDirectionMovement();
             TargetPosition = transform.position + _directionMovement * speed;
@@ -24,6 +23,16 @@ namespace Gameplay
             _directionMovement.x = Input.GetAxisRaw("Horizontal");
             _directionMovement.y = Input.GetAxisRaw("Vertical");
             _directionMovement *= Time.fixedDeltaTime;
+        }
+        
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            var col = collision.gameObject.GetComponent<AbstractEnemy>();
+            if (col != null)
+            {
+                // emit enemyCollisionEvent
+                Death?.Invoke();
+            }
         }
     }
 }

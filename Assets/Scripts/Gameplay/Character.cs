@@ -8,7 +8,7 @@ namespace Gameplay
         
         protected Vector2 TargetPosition;
         
-        protected virtual void Move()
+        public virtual void Move()
         {
             var position = transform.position;
             position = Vector2.MoveTowards(position, TargetPosition, speed * Time.deltaTime);

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Gameplay.Enemy
@@ -14,6 +15,18 @@ namespace Gameplay.Enemy
             var currentPosition = transform.position;
 
             return Vector2.Distance(currentPosition, playerPosition) < minPlayerDistance;
+        }
+
+        
+
+        private void OnTriggerEnter(Collider other)
+        {
+            var col = other.gameObject.GetComponent<Player>();
+            Debug.Log("on trigger");
+            if (col != null)
+            {
+                Debug.Log("Triggered!");
+            }
         }
     }
 }
