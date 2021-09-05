@@ -1,13 +1,12 @@
 using Gameplay.Enemy;
+using Mechanics;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class Player : Character
     {
-        public delegate void MethodContainer();
-        public event MethodContainer Death;
-        
+        public Health health;
         private Vector3 _directionMovement;
 
         public override void Move()
@@ -30,8 +29,7 @@ namespace Gameplay
             var col = collision.gameObject.GetComponent<AbstractEnemy>();
             if (col != null)
             {
-                // emit enemyCollisionEvent
-                Death?.Invoke();
+                health.Damage();
             }
         }
     }

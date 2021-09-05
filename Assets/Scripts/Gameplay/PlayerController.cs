@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Gameplay
 {
@@ -9,7 +8,7 @@ namespace Gameplay
 
         private void Start()
         {
-            player.Death += PlayerDeath;
+            player.health.Death += PlayerDeath;
         }
 
         private void Update()
@@ -20,7 +19,13 @@ namespace Gameplay
         private void PlayerDeath()
         {
             Debug.Log("Player death event");
+            Respawn();
+        }
+
+        private void Respawn()
+        {
             player.transform.position = Vector3.zero;
+            player.health.Heal();
         }
     }
 }
