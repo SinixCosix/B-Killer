@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2001179727236752193}
   - component: {fileID: 2001179727236752194}
   - component: {fileID: 2001179727236752195}
+  - component: {fileID: -1558671152997453111}
   m_Layer: 0
   m_Name: EnemyStalker
   m_TagString: Untagged
@@ -123,7 +124,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  path:
-  - {fileID: 0}
+  health: {fileID: -1558671152997453111}
+  damage: 1
+  player: {fileID: 0}
+  minPlayerDistance: 5
   minTargetDistance: 10
-  waitTime: 1
+--- !u!114 &-1558671152997453111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001179727236752188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258a28c9e34d422d8d37c91a2198e8de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 5

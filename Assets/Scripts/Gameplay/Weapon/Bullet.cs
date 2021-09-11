@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Gameplay.Enemy;
 using UnityEngine;
 
-namespace Gameplay.Bullet
+namespace Gameplay.Weapon
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : Entity
     {
-        public float speed = 20f;
         public Rigidbody2D rb;
 
         private void Update()
@@ -16,8 +15,11 @@ namespace Gameplay.Bullet
         private void OnTriggerEnter2D(Collider2D other)
         {
             Debug.Log(other.name);
-            Destroy(gameObject);
+            var enemy = other.gameObject.GetComponent<AbstractEnemy>();
+            if (enemy == null) return;
             
+            enemy.ApplyDamage(damage);
+            Destroy(gameObject);
         }
     }
 }

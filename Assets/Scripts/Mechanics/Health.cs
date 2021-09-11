@@ -14,9 +14,9 @@ namespace Mechanics
 
         private void Awake() => _currentHp = maxHp;
 
-        public void Damage()
+        public void ApplyDamage(int damage)
         {
-            --_currentHp;
+            _currentHp -= damage;
             Debug.Log($"Current hp: {_currentHp}");
             if (IsDead())
                 Death?.Invoke();

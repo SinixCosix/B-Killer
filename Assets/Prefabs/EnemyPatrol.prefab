@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3314839480179608875}
   - component: {fileID: 3314839480179608873}
   - component: {fileID: 3314839480179608869}
+  - component: {fileID: -3433543300678733810}
   m_Layer: 0
   m_Name: EnemyPatrol
   m_TagString: Untagged
@@ -123,5 +124,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  path: []
-  waitTime: 1
+  health: {fileID: -3433543300678733810}
+  damage: 1
+  player: {fileID: 0}
+  minPlayerDistance: 5
+  minTargetDistance: 0.01
+  patrolPath: []
+  waitTimeOnSpotSec: 1
+--- !u!114 &-3433543300678733810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3314839480179608872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258a28c9e34d422d8d37c91a2198e8de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 5
