@@ -12,7 +12,6 @@ namespace Gameplay.Enemy
         protected void Awake()
         {
             health.Death += Death;
-
         }
 
         private void Death()

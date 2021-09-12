@@ -7,7 +7,7 @@ namespace Gameplay.Weapon
     {
         public Rigidbody2D rb;
 
-        private void Update()
+        private void FixedUpdate()
         {
             rb.velocity = transform.up * speed;
         }

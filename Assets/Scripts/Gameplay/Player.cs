@@ -4,21 +4,39 @@ namespace Gameplay
 {
     public class Player : Entity
     {
-        private Vector3 _directionMovement;
+        public Vector3 movementDirection;
+        public Weapon.Weapon weapon;
+        public Camera mainCamera;
+
+        private float _mouseAngle;
+
+        public void Shoot()
+        {
+            if (Input.GetButtonDown("Fire1"))
+                weapon.Shoot(_mouseAngle);
+        }
+
+        public void CalculateMouseAngle()
+        {
+            var mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            var lookDirection = mousePosition - transform.position;
+            _mouseAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
+            Debug.Log($"angle: {_mouseAngle}");
+        }
 
         public override void Move()
         {
             CalculateDirectionMovement();
-            TargetPosition = transform.position + _directionMovement * speed;
+            TargetPosition = transform.position + movementDirection * speed;
 
             base.Move();
         }
 
         private void CalculateDirectionMovement()
         {
-            _directionMovement.x = Input.GetAxisRaw("Horizontal");
-            _directionMovement.y = Input.GetAxisRaw("Vertical");
-            _directionMovement *= Time.fixedDeltaTime;
+            movementDirection.x = Input.GetAxisRaw("Horizontal");
+            movementDirection.y = Input.GetAxisRaw("Vertical");
+            movementDirection *= Time.fixedDeltaTime;
         }
     }
 }

@@ -6,17 +6,11 @@ namespace Gameplay.Weapon
     {
         public Transform firePoint;
         public GameObject bulletPrefab;
-
-        private void Update()
+        
+        public void Shoot(float rotation)
         {
-            if (Input.GetButtonDown("Fire1"))
-                Shoot();
-        }
-
-        private void Shoot()
-        {
+            firePoint.eulerAngles = new Vector3(0,0, rotation);
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            
         }
     }
 }
