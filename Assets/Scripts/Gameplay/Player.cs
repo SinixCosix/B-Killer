@@ -21,7 +21,6 @@ namespace Gameplay
             var mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             var lookDirection = mousePosition - transform.position;
             _mouseAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
-            Debug.Log($"angle: {_mouseAngle}");
         }
 
         public override void Move()
