@@ -11,27 +11,28 @@ namespace Mechanics
     {
         public Vector2 startPoint;
         public Vector2 endPoint;
-        public int roomsCount = 10;
-        public int minRoomDistance = 5;
+        public int splitCount = 5;
+        
+        public float minSplitSize = 0.2f;
+        private float _maxSplitSize = 0.8f;
+
         public GameObject sprite;
-        public float time = 10;
+        public int minRoomSize = 25;
+        public int minRoomDistance = 5;
+        public float time = 2;
 
-        private List<Rect> _rooms;
-        private List<GameObject> _sprites;
+        private readonly List<Rect> _rooms = new List<Rect>();
+        private readonly List<GameObject> _sprites = new List<GameObject>();
         private float _time;
-
-        public LevelGenerator()
-        {
-            _rooms = new List<Rect>();
-            _sprites = new List<GameObject>();
-        }
 
         private void Start()
         {
             _time = time;
         }
-private void Update()
+
+        private void Update()
         {
+            _maxSplitSize = 1 - minSplitSize;
             if (_time < 0)
             {
                 _time = time;
@@ -40,11 +41,12 @@ private void Update()
                 {
                     Destroy(sprite);
                 }
+
                 _sprites.Clear();
                 var width = Math.Abs(endPoint.x) - Math.Abs(startPoint.x);
                 var height = Math.Abs(endPoint.y) - Math.Abs(startPoint.y);
                 var rect = new Rect(startPoint, new Vector2(width, height));
-                SplitRoom(rect, roomsCount);
+                SplitRoom(rect, splitCount);
                 DrawRooms();
             }
             else
@@ -61,42 +63,57 @@ private void Update()
                 return;
             }
 
-            var splitByVertical = Random.Range(0, 2) == 0;
-            var splitByHorizontal = Random.Range(0, 2) == 0;
-            
-            var width = splitByVertical ? rect.width / 2 : rect.width;
-            var height = splitByHorizontal ? rect.height / 2 : rect.height;
+            bool splitByVertical;
+            var partsRelation = rect.width / rect.height;
 
-            var x1 = splitByVertical ? rect.x + width : rect.x;
-            var y1 = splitByHorizontal ? rect.y + height : rect.y;
+            if (partsRelation > 3)
+                splitByVertical = true;
+            else if (partsRelation < 0.3)
+                splitByVertical = false;
+            else
+                splitByVertical = Random.Range(0, 2) == 0;
+
+            var splitByHorizontal = !splitByVertical;
+
+            var width = splitByVertical
+                ? Random.Range(rect.width * minSplitSize, rect.width * _maxSplitSize)
+                : rect.width;
+            var height = splitByHorizontal
+                ? Random.Range(rect.height * minSplitSize, rect.height * _maxSplitSize)
+                : rect.height;
+
+            // ReSharper disable TailRecursiveCall
+            var x1 = rect.x;
+            var y1 = rect.y;
             var rect1 = new Rect(x1, y1, width, height);
-            var parts1 = Random.Range(1, parts);
+            SplitRoom(rect1, parts - 1);
 
-            var x2 = splitByVertical ? x1 - width : x1 + width;
-            var y2 = splitByHorizontal ? y1 - height : y1 + height;
+            var x2 = splitByVertical ? x1 + width : x1;
+            var y2 = splitByHorizontal ? y1 + height : y1;
             var rect2 = new Rect(x2, y2, width, height);
-            var parts2 = parts - parts1;
-
-            // ReSharper disable once TailRecursiveCall
-            SplitRoom(rect1, parts1);
-            // ReSharper disable once TailRecursiveCall
-            SplitRoom(rect2, parts2);
+            SplitRoom(rect2, parts - 1);
         }
 
         private void DrawRooms()
         {
+            Debug.Log($"rooms count {_rooms.Count}");
             foreach (var room in _rooms)
             {
-                var width = Random.Range(room.width / 2 + minRoomDistance, room.width - minRoomDistance);
-                var height = Random.Range(room.height / 2+ minRoomDistance, room.height - minRoomDistance);
-                var position = new Vector2(room.x, room.y);
-                
+                var minLength = Math.Min(room.width, room.height);
+                var width = Random.Range(minLength, room.width * _maxSplitSize);
+                if (width < minRoomSize)
+                    width = minRoomSize;
+                var height = Random.Range(minLength, room.height * _maxSplitSize);
+                if (height < minRoomSize)
+                    height = minRoomSize;
+                var offsetX = Random.Range(minRoomDistance, room.width);
+                var offsetY = Random.Range(minRoomDistance, room.height);
+                var position = new Vector2(room.x + offsetX, room.y + offsetY);
+
                 var newSprite = Instantiate(sprite, position, Quaternion.identity);
                 newSprite.transform.localScale = new Vector3(width, height);
                 _sprites.Add(newSprite);
             }
         }
-
-        
     }
 }
