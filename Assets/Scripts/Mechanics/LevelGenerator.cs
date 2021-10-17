@@ -39,7 +39,7 @@ namespace Mechanics
                     Destroy(item);
 
                 _sprites.Clear();
-                var rect = new Rect(0,0, mainRoomSize, mainRoomSize);
+                var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
                 SplitRoom(rect, splitCount);
                 DrawRooms();
             }
@@ -55,14 +55,13 @@ namespace Mechanics
                 return;
             }
 
-
             bool splitByVertical;
             if (rect.width / rect.height >= 1.25)
                 splitByVertical = true;
             else if (rect.height / rect.width >= 1.25)
                 splitByVertical = false;
             else
-                splitByVertical = Random.Range(0, 2) == 0;
+                splitByVertical = Random.Range(0f, 1f) > 0.5f;
 
             var splitByHorizontal = !splitByVertical;
 
@@ -101,11 +100,11 @@ namespace Mechanics
                     height = minRoomSize;
                 // var offsetX = Random.Range(minRoomDistance, room.width);
                 // var offsetY = Random.Range(minRoomDistance, room.height);
-                
+
                 for (var i = room.x; i < room.xMax - 2; ++i)
                 for (var j = room.y; j < room.yMax - 2; ++j)
                 {
-                    var position = new Vector3((int)i, (int)j);
+                    var position = new Vector3((int) i, (int) j);
                     var newSprite = Instantiate(sprite, position, Quaternion.identity);
                     _sprites.Add(newSprite);
                 }
