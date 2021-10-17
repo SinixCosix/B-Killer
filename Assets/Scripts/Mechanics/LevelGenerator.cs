@@ -9,14 +9,14 @@ namespace Mechanics
 {
     public class LevelGenerator : MonoBehaviour
     {
-        public int mainRoomSize = 100;
-        public int splitCount = 5;
+        public uint mainRoomSize = 100;
+        public uint splitCount = 5;
 
-        public float minSplitSize = 0.3f;
-        private float _maxSplitSize;
+        public float splitRatio = 0.25f;
+        private float _splitRatio;
 
         public GameObject sprite;
-        public int minRoomSize = 25;
+        public uint minRoomSize = 6;
         public float time = 2;
 
         private readonly List<Rect> _rooms = new List<Rect>();
@@ -30,7 +30,7 @@ namespace Mechanics
 
         private void Update()
         {
-            _maxSplitSize = 1 - minSplitSize;
+            _splitRatio = 1 - splitRatio;
             if (_time < 0)
             {
                 _time = time;
@@ -47,7 +47,7 @@ namespace Mechanics
                 _time -= Time.deltaTime;
         }
 
-        private void SplitRoom(Rect rect, int parts)
+        private void SplitRoom(Rect rect, uint parts)
         {
             if (parts == 0)
             {
@@ -66,10 +66,10 @@ namespace Mechanics
             var splitByHorizontal = !splitByVertical;
 
             var width1 = splitByVertical
-                ? Random.Range(rect.width * minSplitSize, rect.width * _maxSplitSize)
+                ? Random.Range(rect.width * splitRatio, rect.width * _splitRatio)
                 : rect.width;
             var height1 = splitByHorizontal
-                ? Random.Range(rect.height * minSplitSize, rect.height * _maxSplitSize)
+                ? Random.Range(rect.height * splitRatio, rect.height * _splitRatio)
                 : rect.height;
 
             // ReSharper disable TailRecursiveCall
@@ -92,20 +92,18 @@ namespace Mechanics
             foreach (var room in _rooms)
             {
                 var minLength = Math.Min(room.width, room.height);
-                var width = Random.Range(minLength, room.width * _maxSplitSize);
-                // if (width < minRoomSize)
-                    // width = minRoomSize;
-                var height = Random.Range(minLength, room.height * _maxSplitSize);
-                // if (height < minRoomSize)
-                    // height = minRoomSize;
-                // var offsetX = Random.Range(minRoomDistance, room.width);
-                // var offsetY = Random.Range(minRoomDistance, room.height);
+                var width = Random.Range(minLength * splitRatio, room.width);
+                if (width < minRoomSize)
+                    width = minRoomSize;
+                var height = Random.Range(minLength * splitRatio, room.height);
+                if (height < minRoomSize)
+                    height = minRoomSize;
+                var x = Random.Range(room.x, room.xMax - width);
+                var y = Random.Range(room.y, room.yMax - height);
 
-                var rect = new Rect(room.x, room.y, width, height);
-                for (var i = rect.x; i < rect.xMax - 2; ++i)
-                // for (var i = room.x; i < room.xMax - 2; ++i)
-                for (var j = rect.y; j < rect.yMax - 2; ++j)
-                // for (var j = room.y; j < room.yMax - 2; ++j)
+                var rect = new Rect(x, y, width, height);
+                for (var i = rect.x; i < rect.xMax; ++i)
+                for (var j = rect.y; j < rect.yMax; ++j)
                 {
                     var position = new Vector3((int) i, (int) j);
                     var newSprite = Instantiate(sprite, position, Quaternion.identity);
