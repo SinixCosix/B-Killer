@@ -55,12 +55,11 @@ namespace Mechanics
                 return;
             }
 
-            bool splitByVertical;
-            var partsRelation = rect.width / rect.height;
 
-            if (partsRelation > 3)
+            bool splitByVertical;
+            if (rect.width / rect.height >= 1.25)
                 splitByVertical = true;
-            else if (partsRelation < 0.3)
+            else if (rect.height / rect.width >= 1.25)
                 splitByVertical = false;
             else
                 splitByVertical = Random.Range(0, 2) == 0;
