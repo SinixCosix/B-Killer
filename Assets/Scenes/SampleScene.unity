@@ -152,13 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f096348868164edd9e05e05ec9171e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {x: 0, y: 0}
-  endPoint: {x: 100, y: 100}
+  mainRoomSize: 100
   splitCount: 5
-  minSplitSize: 0.2
+  minSplitSize: 0.3
   sprite: {fileID: 5745822309285970392, guid: 35a159963c60697418fa4c7e1632b92b, type: 3}
   minRoomSize: 25
-  minRoomDistance: 5
   time: 2
 --- !u!4 &189166094
 Transform:

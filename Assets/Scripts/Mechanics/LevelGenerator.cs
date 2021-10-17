@@ -9,8 +9,7 @@ namespace Mechanics
 {
     public class LevelGenerator : MonoBehaviour
     {
-        public Vector2 startPoint;
-        public Vector2 endPoint;
+        public int mainRoomSize = 100;
         public int splitCount = 5;
 
         public float minSplitSize = 0.3f;
@@ -18,7 +17,6 @@ namespace Mechanics
 
         public GameObject sprite;
         public int minRoomSize = 25;
-        public int minRoomDistance = 5;
         public float time = 2;
 
         private readonly List<Rect> _rooms = new List<Rect>();
@@ -37,22 +35,16 @@ namespace Mechanics
             {
                 _time = time;
                 _rooms.Clear();
-                foreach (var sprite in _sprites)
-                {
-                    Destroy(sprite);
-                }
+                foreach (var item in _sprites)
+                    Destroy(item);
 
                 _sprites.Clear();
-                var width = Math.Abs(endPoint.x) - Math.Abs(startPoint.x);
-                var height = Math.Abs(endPoint.y) - Math.Abs(startPoint.y);
-                var rect = new Rect(startPoint, new Vector2(width, height));
+                var rect = new Rect(0,0, mainRoomSize, mainRoomSize);
                 SplitRoom(rect, splitCount);
                 DrawRooms();
             }
             else
-            {
                 _time -= Time.deltaTime;
-            }
         }
 
         private void SplitRoom(Rect rect, int parts)
@@ -108,16 +100,13 @@ namespace Mechanics
                 var height = Random.Range(minLength, room.height * _maxSplitSize);
                 if (height < minRoomSize)
                     height = minRoomSize;
-                var offsetX = Random.Range(minRoomDistance, room.width);
-                var offsetY = Random.Range(minRoomDistance, room.height);
-
+                // var offsetX = Random.Range(minRoomDistance, room.width);
+                // var offsetY = Random.Range(minRoomDistance, room.height);
+                
                 for (var i = room.x; i < room.xMax - 2; ++i)
-                    // for (var i = room.x; i < room.x + width; ++i)
                 for (var j = room.y; j < room.yMax - 2; ++j)
-                    // for (var j = room.y; j < room.y + height; ++j)
                 {
                     var position = new Vector3((int)i, (int)j);
-
                     var newSprite = Instantiate(sprite, position, Quaternion.identity);
                     _sprites.Add(newSprite);
                 }
