@@ -93,16 +93,19 @@ namespace Mechanics
             {
                 var minLength = Math.Min(room.width, room.height);
                 var width = Random.Range(minLength, room.width * _maxSplitSize);
-                if (width < minRoomSize)
-                    width = minRoomSize;
+                // if (width < minRoomSize)
+                    // width = minRoomSize;
                 var height = Random.Range(minLength, room.height * _maxSplitSize);
-                if (height < minRoomSize)
-                    height = minRoomSize;
+                // if (height < minRoomSize)
+                    // height = minRoomSize;
                 // var offsetX = Random.Range(minRoomDistance, room.width);
                 // var offsetY = Random.Range(minRoomDistance, room.height);
 
-                for (var i = room.x; i < room.xMax - 2; ++i)
-                for (var j = room.y; j < room.yMax - 2; ++j)
+                var rect = new Rect(room.x, room.y, width, height);
+                for (var i = rect.x; i < rect.xMax - 2; ++i)
+                // for (var i = room.x; i < room.xMax - 2; ++i)
+                for (var j = rect.y; j < rect.yMax - 2; ++j)
+                // for (var j = room.y; j < room.yMax - 2; ++j)
                 {
                     var position = new Vector3((int) i, (int) j);
                     var newSprite = Instantiate(sprite, position, Quaternion.identity);
