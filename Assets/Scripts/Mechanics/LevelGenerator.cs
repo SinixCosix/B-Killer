@@ -49,7 +49,7 @@ namespace Mechanics
 
         private void SplitRoom(Rect rect, int parts)
         {
-            if (parts == 1)
+            if (parts == 0)
             {
                 _rooms.Add(rect);
                 return;
