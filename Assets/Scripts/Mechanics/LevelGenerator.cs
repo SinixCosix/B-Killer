@@ -16,10 +16,12 @@ namespace Mechanics
         private float _splitRatio;
 
         public GameObject sprite;
+        public GameObject pathSprite;
         public uint minRoomSize = 6;
         public float time = 2;
 
         private readonly List<Rect> _rooms = new List<Rect>();
+        private readonly List<List<Vector2>> _corridors = new List<List<Vector2>>();
         private readonly List<GameObject> _sprites = new List<GameObject>();
         private float _time;
 
@@ -41,17 +43,21 @@ namespace Mechanics
                 _sprites.Clear();
                 var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
                 SplitRoom(rect, splitCount);
+
                 DrawRooms();
+                DrawCorridors();
             }
             else
                 _time -= Time.deltaTime;
         }
 
+
         private void SplitRoom(Rect rect, uint parts)
         {
             if (parts == 0)
             {
-                _rooms.Add(rect);
+                var room = ReshapeRoom(rect);
+                _rooms.Add(room);
                 return;
             }
 
@@ -86,29 +92,84 @@ namespace Mechanics
             SplitRoom(rect2, parts - 1);
         }
 
+        private Rect ReshapeRoom(Rect room)
+        {
+            var minLength = Math.Min(room.width, room.height);
+            var width = Random.Range(minLength * splitRatio, room.width);
+            if (width < minRoomSize)
+                width = minRoomSize;
+            var height = Random.Range(minLength * splitRatio, room.height);
+            if (height < minRoomSize)
+                height = minRoomSize;
+            var x = Random.Range(room.x, room.xMax - width);
+            var y = Random.Range(room.y, room.yMax - height);
+
+            return new Rect(x, y, width, height);
+        }
+
         private void DrawRooms()
         {
             Debug.Log($"rooms count {_rooms.Count}");
             foreach (var room in _rooms)
             {
-                var minLength = Math.Min(room.width, room.height);
-                var width = Random.Range(minLength * splitRatio, room.width);
-                if (width < minRoomSize)
-                    width = minRoomSize;
-                var height = Random.Range(minLength * splitRatio, room.height);
-                if (height < minRoomSize)
-                    height = minRoomSize;
-                var x = Random.Range(room.x, room.xMax - width);
-                var y = Random.Range(room.y, room.yMax - height);
-
-                var rect = new Rect(x, y, width, height);
-                for (var i = rect.x; i < rect.xMax; ++i)
-                for (var j = rect.y; j < rect.yMax; ++j)
+                // var minLength = Math.Min(room.width, room.height);
+                // var width = Random.Range(minLength * splitRatio, room.width);
+                // if (width < minRoomSize)
+                //     width = minRoomSize;
+                // var height = Random.Range(minLength * splitRatio, room.height);
+                // if (height < minRoomSize)
+                //     height = minRoomSize;
+                // var x = Random.Range(room.x, room.xMax - width);
+                // var y = Random.Range(room.y, room.yMax - height);
+                //
+                // var rect = new Rect(x, y, width, height);
+                for (var i = room.x; i <= room.xMax; ++i)
+                for (var j = room.y; j <= room.yMax; ++j)
                 {
                     var position = new Vector3((int) i, (int) j);
                     var newSprite = Instantiate(sprite, position, Quaternion.identity);
                     _sprites.Add(newSprite);
                 }
+            }
+        }
+
+        private void DrawCorridors()
+        {
+            for (var i = 0; i < _rooms.Count - 1; ++i)
+            {
+                var room = _rooms[i].center;
+                var nextRoom = _rooms[i + 1].center;
+                for (var x = room.x; x <= nextRoom.x; ++x)
+                {
+                    var position = new Vector3((int) x, (int) room.y);
+                    var newSprite = Instantiate(pathSprite, position, Quaternion.identity);
+                    _sprites.Add(newSprite);
+                }
+
+                for (var y = room.y; y <= nextRoom.y; ++y)
+                {
+                    var position = new Vector3((int) room.x, (int) y);
+                    var newSprite = Instantiate(pathSprite, position, Quaternion.identity);
+                    _sprites.Add(newSprite);
+                }
+                // var corridor = new List<Vector2> {room};
+
+                // var pointBtwRooms = new Vector2();
+                // var direction = Random.Range(0f, 1f) > 0.5;
+                // if (direction)
+                // {
+                //     pointBtwRooms.x = room.x + (nextRoom.x - room.x);
+                //     pointBtwRooms.y = room.y;
+                // }
+                // else
+                // {
+                //     pointBtwRooms.x = room.x;
+                //     pointBtwRooms.y = room.y + (nextRoom.y - room.y);
+                // }
+                //
+                // corridor.Add(pointBtwRooms);
+                // corridor.Add(nextRoom);
+                // _corridors.Add(corridor);
             }
         }
     }
