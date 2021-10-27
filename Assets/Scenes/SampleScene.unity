@@ -156,6 +156,7 @@ MonoBehaviour:
   splitCount: 4
   splitRatio: 0.25
   sprite: {fileID: 5745822309285970392, guid: 35a159963c60697418fa4c7e1632b92b, type: 3}
+  pathSprite: {fileID: 4916841454417022761, guid: 41badd6cffca3f341b73b288c1a95dff, type: 3}
   minRoomSize: 10
   time: 1
 --- !u!4 &189166094
