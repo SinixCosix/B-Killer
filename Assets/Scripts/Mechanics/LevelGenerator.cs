@@ -36,11 +36,8 @@ namespace Mechanics
             if (_time < 0)
             {
                 _time = time;
-                _rooms.Clear();
-                foreach (var item in _sprites)
-                    Destroy(item);
-
-                _sprites.Clear();
+                Clear();
+                
                 var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
                 SplitRoom(rect, splitCount);
                 GeneratePaths();
@@ -52,16 +49,14 @@ namespace Mechanics
                 _time -= Time.deltaTime;
         }
 
-        private void DrawPaths()
+        private void Clear()
         {
-            foreach (var position in _paths)
-            {
-                var newSprite = Instantiate(pathSprite, position, Quaternion.identity);
-                _sprites.Add(newSprite);
-            }
+            _rooms.Clear();
+            foreach (var item in _sprites)
+                Destroy(item);
+            _sprites.Clear();
+            _paths.Clear();
         }
-
-
         private void SplitRoom(Rect rect, uint parts)
         {
             if (parts == 0)
@@ -101,7 +96,6 @@ namespace Mechanics
             var rect2 = new Rect(x2, y2, width2, height2);
             SplitRoom(rect2, parts - 1);
         }
-
         private Rect ReshapeRoom(Rect room)
         {
             var minLength = Math.Min(room.width, room.height);
@@ -117,6 +111,43 @@ namespace Mechanics
             return new Rect(x, y, width, height);
         }
 
+        private void GeneratePaths()
+        {
+            for (var i = 0; i < _rooms.Count - 1; ++i)
+            {
+                var room = _rooms[i].center;
+                var nextRoom = _rooms[i + 1].center;
+                var position = room;
+                
+                while ((int) position.x != (int) nextRoom.x)
+                {
+                    if (nextRoom.x > position.x)
+                        position += Vector2.right;
+                    else if (nextRoom.x < position.x)
+                        position += Vector2.left;
+
+                    for (var j = 0; j < 2; ++j)
+                    {
+                        var y = (int) position.y + j;
+                        _paths.Add(new Vector2((int)position.x, y));
+                    }
+                }
+                while ((int) position.y != (int) nextRoom.y)
+                {
+                    if (nextRoom.y > position.y)
+                        position += Vector2.up;
+                    else if (nextRoom.y < position.y)
+                        position += Vector2.down;
+
+                    for (var j = 0; j < 2; ++j)
+                    {
+                        var x = (int) position.x + j;
+                        _paths.Add(new Vector2(x, (int)position.y));
+                    }
+                }
+            }
+        }
+    
         private void DrawRooms()
         {
             Debug.Log($"rooms count {_rooms.Count}");
@@ -132,35 +163,12 @@ namespace Mechanics
             }
         }
 
-        private void GeneratePaths()
+        private void DrawPaths()
         {
-            for (var i = 0; i < _rooms.Count - 1; ++i)
+            foreach (var position in _paths)
             {
-                var room = _rooms[i].center;
-                var nextRoom = _rooms[i + 1].center;
-
-                var position = room;
-                while ((int) position.y != (int) nextRoom.y)
-                {
-                    if (nextRoom.y > position.y)
-                        position += Vector2.up;
-                    else if (nextRoom.y < position.y)
-                        position += Vector2.down;
-
-                    position = new Vector2((int) position.x, (int) position.y);
-                    _paths.Add(position);
-                }
-
-                while ((int) position.x != (int) nextRoom.x)
-                {
-                    if (nextRoom.x > position.x)
-                        position += Vector2.right;
-                    else if (nextRoom.x < position.x)
-                        position += Vector2.left;
-
-                    position = new Vector2((int) position.x, (int) position.y);
-                    _paths.Add(position);
-                }
+                var newSprite = Instantiate(pathSprite, position, Quaternion.identity);
+                _sprites.Add(newSprite);
             }
         }
     }
