@@ -21,8 +21,8 @@ namespace Mechanics
         public float time = 2;
 
         private readonly List<Rect> _rooms = new List<Rect>();
-        private readonly List<List<Vector2>> _corridors = new List<List<Vector2>>();
         private readonly List<GameObject> _sprites = new List<GameObject>();
+        private HashSet<Vector2> _paths= new HashSet<Vector2>();
         private float _time;
 
         private void Start()
@@ -43,12 +43,22 @@ namespace Mechanics
                 _sprites.Clear();
                 var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
                 SplitRoom(rect, splitCount);
+                GeneratePaths();
 
                 DrawRooms();
-                DrawCorridors();
+                DrawPaths();
             }
             else
                 _time -= Time.deltaTime;
+        }
+
+        private void DrawPaths()
+        {
+            foreach (var position in _paths)
+            {
+                var newSprite = Instantiate(pathSprite, position, Quaternion.identity);
+                _sprites.Add(newSprite);
+            }
         }
 
 
@@ -122,7 +132,7 @@ namespace Mechanics
             }
         }
 
-        private void DrawCorridors()
+        private void GeneratePaths()
         {
             for (var i = 0; i < _rooms.Count - 1; ++i)
             {
@@ -138,8 +148,7 @@ namespace Mechanics
                         position += Vector2.down;
 
                     position = new Vector2((int) position.x, (int) position.y);
-                    var newSprite = Instantiate(pathSprite, position, Quaternion.identity);
-                    _sprites.Add(newSprite);
+                    _paths.Add(position);
                 }
 
                 while ((int) position.x != (int) nextRoom.x)
@@ -150,8 +159,7 @@ namespace Mechanics
                         position += Vector2.left;
 
                     position = new Vector2((int) position.x, (int) position.y);
-                    var newSprite = Instantiate(pathSprite, position, Quaternion.identity);
-                    _sprites.Add(newSprite);
+                    _paths.Add(position);
                 }
             }
         }
