@@ -8,7 +8,8 @@ namespace Mechanics
     public class TilemapVisualizer : MonoBehaviour
     {
         public Tilemap floorTilemap;
-        public TileBase floorTile;
+        public TileBase lawnTile;
+        public TileBase pathTile;
         
         private readonly HashSet<TileBase> _tiles= new HashSet<TileBase>();
 
@@ -16,22 +17,33 @@ namespace Mechanics
         {
             floorTilemap.ClearAllTiles();
         }
-        public void PaintFloor(IEnumerable<Vector2> positions)
-        {
-            PaintTiles(positions, floorTilemap, floorTile);
-        }
 
-        private void PaintTiles(IEnumerable<Vector2> positions, Tilemap tilemap, TileBase tile)
+        public void PaintLawns(IEnumerable<Rect> lawns)
         {
-            foreach (var position in positions)
+            foreach (var room in lawns)
             {
-                PaintTile(position, tilemap, tile);
+                for (var i = room.x; i < room.xMax; ++i)
+                for (var j = room.y; j < room.yMax; ++j)
+                {
+                    var position = new Vector2Int((int) i, (int) j);
+                    PaintTile(position, floorTilemap, lawnTile);
+                }
             }
         }
-
-        private void PaintTile(Vector2 position, Tilemap tilemap, TileBase tile)
+        public void PaintPaths(IEnumerable<Vector2Int> pathPositions)
         {
-            var tilePosition = tilemap.WorldToCell(position);
+            PaintTiles(pathPositions, floorTilemap, pathTile);
+        }
+
+        private void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tilemap, TileBase tile)
+        {
+            foreach (var position in positions)
+                PaintTile(position, tilemap, tile);
+        }
+
+        private void PaintTile(Vector2Int position, Tilemap tilemap, TileBase tile)
+        {
+            var tilePosition = tilemap.WorldToCell((Vector3Int)position);
             tilemap.SetTile(tilePosition, tile);
             _tiles.Add(tile);
         }

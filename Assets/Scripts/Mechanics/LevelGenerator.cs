@@ -16,15 +16,15 @@ namespace Mechanics
         private float _splitRatio;
 
         public GameObject sprite;
-        public GameObject pathSprite;
         public uint minRoomSize = 6;
         public float time = 2;
 
         public TilemapVisualizer tilemapVisualizer;
 
-        private readonly List<Rect> _rooms = new List<Rect>();
-        private readonly List<GameObject> _sprites = new List<GameObject>();
-        private readonly HashSet<Vector2> _paths= new HashSet<Vector2>();
+        private readonly List<Rect> _lawns = new List<Rect>();
+        
+        private readonly HashSet<Vector2Int> _paths= new HashSet<Vector2Int>();
+        
         private float _time;
 
         private void Start()
@@ -42,13 +42,11 @@ namespace Mechanics
                 tilemapVisualizer.Clear();
                 
                 var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
-                SplitRoom(rect, splitCount);
+                SplitRect(rect, splitCount);
                 GeneratePaths();
-
                 
-                tilemapVisualizer.PaintFloor(_paths);
-                DrawRooms();
-                // DrawPaths();
+                tilemapVisualizer.PaintLawns(_lawns);
+                tilemapVisualizer.PaintPaths(_paths);
             } 
             else
                 _time -= Time.deltaTime;
@@ -56,18 +54,14 @@ namespace Mechanics
 
         private void Clear()
         {
-            _rooms.Clear();
-            foreach (var item in _sprites)
-                Destroy(item);
-            _sprites.Clear();
+            _lawns.Clear();
             _paths.Clear();
         }
-        private void SplitRoom(Rect rect, uint parts)
+        private void SplitRect(Rect rect, uint parts)
         {
             if (parts == 0)
             {
-                var room = ReshapeRoom(rect);
-                _rooms.Add(room);
+                _lawns.Add(ReshapeRect(rect));
                 return;
             }
 
@@ -92,36 +86,36 @@ namespace Mechanics
             var x1 = rect.x;
             var y1 = rect.y;
             var rect1 = new Rect(x1, y1, width1, height1);
-            SplitRoom(rect1, parts - 1);
+            SplitRect(rect1, parts - 1);
 
             var width2 = splitByVertical ? rect.width - rect1.width : rect.width;
             var height2 = splitByHorizontal ? rect.height - rect1.height : rect.height;
             var x2 = splitByVertical ? x1 + width1 : x1;
             var y2 = splitByHorizontal ? y1 + height1 : y1;
             var rect2 = new Rect(x2, y2, width2, height2);
-            SplitRoom(rect2, parts - 1);
+            SplitRect(rect2, parts - 1);
         }
-        private Rect ReshapeRoom(Rect room)
+        private Rect ReshapeRect(Rect rect)
         {
-            var minLength = Math.Min(room.width, room.height);
-            var width = Random.Range(minLength * splitRatio, room.width);
+            var minLength = Math.Min(rect.width, rect.height);
+            var width = Random.Range(minLength * splitRatio, rect.width);
             if (width < minRoomSize)
                 width = minRoomSize;
-            var height = Random.Range(minLength * splitRatio, room.height);
+            var height = Random.Range(minLength * splitRatio, rect.height);
             if (height < minRoomSize)
                 height = minRoomSize;
-            var x = Random.Range(room.x, room.xMax - width);
-            var y = Random.Range(room.y, room.yMax - height);
+            var x = Random.Range(rect.x, rect.xMax - width);
+            var y = Random.Range(rect.y, rect.yMax - height);
 
             return new Rect(x, y, width, height);
         }
 
         private void GeneratePaths()
         {
-            for (var i = 0; i < _rooms.Count - 1; ++i)
+            for (var i = 0; i < _lawns.Count - 1; ++i)
             {
-                var room = _rooms[i].center;
-                var nextRoom = _rooms[i + 1].center;
+                var room = _lawns[i].center;
+                var nextRoom = _lawns[i + 1].center;
                 var position = room;
                 
                 while ((int) position.x != (int) nextRoom.x)
@@ -134,7 +128,7 @@ namespace Mechanics
                     for (var j = 0; j < 2; ++j)
                     {
                         var y = (int) position.y + j;
-                        _paths.Add(new Vector2((int)position.x, y));
+                        _paths.Add(new Vector2Int((int)position.x, y));
                     }
                 }
                 while ((int) position.y != (int) nextRoom.y)
@@ -147,33 +141,9 @@ namespace Mechanics
                     for (var j = 0; j < 2; ++j)
                     {
                         var x = (int) position.x + j;
-                        _paths.Add(new Vector2(x, (int)position.y));
+                        _paths.Add(new Vector2Int(x, (int)position.y));
                     }
                 }
-            }
-        }
-    
-        private void DrawRooms()
-        {
-            Debug.Log($"rooms count {_rooms.Count}");
-            foreach (var room in _rooms)
-            {
-                for (var i = room.x; i < room.xMax; ++i)
-                for (var j = room.y; j < room.yMax; ++j)
-                {
-                    var position = new Vector3((int) i, (int) j);
-                    var newSprite = Instantiate(sprite, position, Quaternion.identity);
-                    _sprites.Add(newSprite);
-                }
-            }
-        }
-
-        private void DrawPaths()
-        {
-            foreach (var position in _paths)
-            {
-                var newSprite = Instantiate(pathSprite, position, Quaternion.identity);
-                _sprites.Add(newSprite);
             }
         }
     }
