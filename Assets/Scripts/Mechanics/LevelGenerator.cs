@@ -20,9 +20,11 @@ namespace Mechanics
         public uint minRoomSize = 6;
         public float time = 2;
 
+        public TilemapVisualizer tilemapVisualizer;
+
         private readonly List<Rect> _rooms = new List<Rect>();
         private readonly List<GameObject> _sprites = new List<GameObject>();
-        private HashSet<Vector2> _paths= new HashSet<Vector2>();
+        private readonly HashSet<Vector2> _paths= new HashSet<Vector2>();
         private float _time;
 
         private void Start()
@@ -37,14 +39,17 @@ namespace Mechanics
             {
                 _time = time;
                 Clear();
+                tilemapVisualizer.Clear();
                 
                 var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
                 SplitRoom(rect, splitCount);
                 GeneratePaths();
 
+                
+                tilemapVisualizer.PaintFloor(_paths);
                 DrawRooms();
-                DrawPaths();
-            }
+                // DrawPaths();
+            } 
             else
                 _time -= Time.deltaTime;
         }
