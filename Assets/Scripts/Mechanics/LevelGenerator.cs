@@ -22,7 +22,6 @@ namespace Mechanics
         public TilemapVisualizer tilemapVisualizer;
 
         private readonly List<Rect> _lawns = new List<Rect>();
-        
         private readonly HashSet<Vector2Int> _paths= new HashSet<Vector2Int>();
         
         private float _time;
@@ -39,14 +38,16 @@ namespace Mechanics
             {
                 _time = time;
                 Clear();
-                tilemapVisualizer.Clear();
                 
                 var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
-                SplitRect(rect, splitCount);
+                GenerateLawns(rect, splitCount);
                 GeneratePaths();
-                
-                tilemapVisualizer.PaintLawns(_lawns);
+
+                tilemapVisualizer.PaintLawns();
+                tilemapVisualizer.PaintForest();
                 tilemapVisualizer.PaintPaths(_paths);
+                tilemapVisualizer.CutForest(_lawns);
+                tilemapVisualizer.CutForest(_paths);
             } 
             else
                 _time -= Time.deltaTime;
@@ -56,8 +57,9 @@ namespace Mechanics
         {
             _lawns.Clear();
             _paths.Clear();
+            tilemapVisualizer.Clear();
         }
-        private void SplitRect(Rect rect, uint parts)
+        private void GenerateLawns(Rect rect, uint parts)
         {
             if (parts == 0)
             {
@@ -86,14 +88,14 @@ namespace Mechanics
             var x1 = rect.x;
             var y1 = rect.y;
             var rect1 = new Rect(x1, y1, width1, height1);
-            SplitRect(rect1, parts - 1);
+            GenerateLawns(rect1, parts - 1);
 
             var width2 = splitByVertical ? rect.width - rect1.width : rect.width;
             var height2 = splitByHorizontal ? rect.height - rect1.height : rect.height;
             var x2 = splitByVertical ? x1 + width1 : x1;
             var y2 = splitByHorizontal ? y1 + height1 : y1;
             var rect2 = new Rect(x2, y2, width2, height2);
-            SplitRect(rect2, parts - 1);
+            GenerateLawns(rect2, parts - 1);
         }
         private Rect ReshapeRect(Rect rect)
         {
