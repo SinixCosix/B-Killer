@@ -92,6 +92,7 @@ namespace Mechanics
         {
             _lawns.Clear();
             _paths.Clear();
+            _decorations.Clear();
             tilemapVisualizer.Clear();
         }
 

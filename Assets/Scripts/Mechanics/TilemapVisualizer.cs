@@ -32,10 +32,9 @@ namespace Mechanics
             foreach (var point in points)
             {
                 TileBase tile;
-                if (paths.Contains(point))
-                    tile = stoneTile;
-                else
-                    tile = Random.Range(0f, 1f) > 0.5 ? stoneTile : grassTile;
+                tile = Random.Range(0f, 1f) > 0.5 ? stoneTile : grassTile;
+                if (paths.Contains(point) && tile == grassTile)
+                    continue;
 
                 PaintTile(point, decorationsTilemap, tile);
             }
