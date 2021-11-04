@@ -31,8 +31,7 @@ namespace Mechanics
         {
             foreach (var point in points)
             {
-                TileBase tile;
-                tile = Random.Range(0f, 1f) > 0.5 ? stoneTile : grassTile;
+                var tile = Random.Range(0f, 1f) > 0.5 ? stoneTile : grassTile;
                 if (paths.Contains(point) && tile == grassTile)
                     continue;
 
@@ -87,13 +86,13 @@ namespace Mechanics
             PaintTiles(pathPositions, floorTilemap, pathTile);
         }
 
-        private void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tilemap, TileBase tile)
+        private static void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tilemap, TileBase tile)
         {
             foreach (var position in positions)
                 PaintTile(position, tilemap, tile);
         }
 
-        private void PaintTile(Vector2Int position, Tilemap tilemap, TileBase tile)
+        private static void PaintTile(Vector2Int position, Tilemap tilemap, TileBase tile)
         {
             var tilePosition = tilemap.WorldToCell((Vector3Int) position);
             tilemap.SetTile(tilePosition, tile);
