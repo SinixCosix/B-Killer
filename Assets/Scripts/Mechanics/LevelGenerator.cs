@@ -22,8 +22,10 @@ namespace Mechanics
         public TilemapVisualizer tilemapVisualizer;
 
         private readonly List<Rect> _lawns = new List<Rect>();
-        private readonly HashSet<Vector2Int> _paths= new HashSet<Vector2Int>();
+        private readonly HashSet<Vector2Int> _paths = new HashSet<Vector2Int>();
+        private readonly HashSet<Vector2Int> _decorations = new HashSet<Vector2Int>();
         
+
         private float _time;
 
         private void Start()
@@ -38,19 +40,52 @@ namespace Mechanics
             {
                 _time = time;
                 Clear();
-                
+
                 var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
                 GenerateLawns(rect, splitCount);
                 GeneratePaths();
+                GenerateDecorations(_lawns);
+                GenerateDecorations(_paths);
+                
 
                 tilemapVisualizer.PaintLawns();
                 tilemapVisualizer.PaintForest();
                 tilemapVisualizer.PaintPaths(_paths);
+                tilemapVisualizer.PaintDecorations(_decorations, _paths);
                 tilemapVisualizer.CutForest(_lawns);
                 tilemapVisualizer.CutForest(_paths);
-            } 
+            }
             else
                 _time -= Time.deltaTime;
+        }
+
+        private void GenerateDecorations(IEnumerable<Rect> lawns)
+        {
+            foreach (var rect in lawns)
+            {
+                var minDecorationsCount = rect.width;
+                var maxDecorationsCount = rect.width + rect.height;
+                var decorationsCount = Random.Range(minDecorationsCount, maxDecorationsCount);
+                for (var i =0; i < decorationsCount; ++i)
+                {
+                    var x = Random.Range((int) rect.x, (int) rect.xMax);
+                    var y = Random.Range((int) rect.y, (int) rect.yMax);
+                    _decorations.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+
+        private void GenerateDecorations(ICollection<Vector2Int> paths)
+        {
+            var minDecorationsCount = paths.Count / 6;
+            var maxDecorationsCount = paths.Count / 5;
+            var decorationsCount = Random.Range(minDecorationsCount, maxDecorationsCount);
+            for (var i = 0; i < decorationsCount; ++i)
+            {
+                var index = Random.Range(0, paths.Count);
+                var point = paths.ElementAt(index);
+                _decorations.Add(point);
+            }
         }
 
         private void Clear()
@@ -59,6 +94,7 @@ namespace Mechanics
             _paths.Clear();
             tilemapVisualizer.Clear();
         }
+
         private void GenerateLawns(Rect rect, uint parts)
         {
             if (parts == 0)
@@ -97,6 +133,7 @@ namespace Mechanics
             var rect2 = new Rect(x2, y2, width2, height2);
             GenerateLawns(rect2, parts - 1);
         }
+
         private Rect ReshapeRect(Rect rect)
         {
             var minLength = Math.Min(rect.width, rect.height);
@@ -119,7 +156,7 @@ namespace Mechanics
                 var room = _lawns[i].center;
                 var nextRoom = _lawns[i + 1].center;
                 var position = room;
-                
+
                 while ((int) position.x != (int) nextRoom.x)
                 {
                     if (nextRoom.x > position.x)
@@ -130,9 +167,10 @@ namespace Mechanics
                     for (var j = 0; j < 2; ++j)
                     {
                         var y = (int) position.y + j;
-                        _paths.Add(new Vector2Int((int)position.x, y));
+                        _paths.Add(new Vector2Int((int) position.x, y));
                     }
                 }
+
                 while ((int) position.y != (int) nextRoom.y)
                 {
                     if (nextRoom.y > position.y)
@@ -143,7 +181,7 @@ namespace Mechanics
                     for (var j = 0; j < 2; ++j)
                     {
                         var x = (int) position.x + j;
-                        _paths.Add(new Vector2Int(x, (int)position.y));
+                        _paths.Add(new Vector2Int(x, (int) position.y));
                     }
                 }
             }

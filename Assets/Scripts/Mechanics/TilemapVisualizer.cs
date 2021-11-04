@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,10 +10,13 @@ namespace Mechanics
     {
         public Tilemap floorTilemap;
         public Tilemap forestTilemap;
+        public Tilemap decorationsTilemap;
 
         public TileBase pathTile;
         public TileBase lawnTile;
         public TileBase treeTile;
+        public TileBase stoneTile;
+        public TileBase grassTile;
 
         public uint forestOffset = 3;
 
@@ -20,6 +24,21 @@ namespace Mechanics
         {
             floorTilemap.ClearAllTiles();
             forestTilemap.ClearAllTiles();
+            decorationsTilemap.ClearAllTiles();
+        }
+
+        public void PaintDecorations(IEnumerable<Vector2Int> points, IEnumerable<Vector2Int> paths)
+        {
+            foreach (var point in points)
+            {
+                TileBase tile;
+                if (paths.Contains(point))
+                    tile = stoneTile;
+                else
+                    tile = Random.Range(0f, 1f) > 0.5 ? stoneTile : grassTile;
+
+                PaintTile(point, decorationsTilemap, tile);
+            }
         }
 
         public void PaintForest()
@@ -43,7 +62,9 @@ namespace Mechanics
                     PaintTile(position, forestTilemap, null);
                 }
             }
-        } public void CutForest(IEnumerable<Vector2Int> cutSpace)
+        }
+
+        public void CutForest(IEnumerable<Vector2Int> cutSpace)
         {
             foreach (var point in cutSpace)
             {
