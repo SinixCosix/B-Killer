@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 2731413826383227259}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 148048982469620338}
   - {fileID: 6497857103089487826}
@@ -227,7 +227,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 28796cbcd3ff8ec46a847a0204590733, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
   damage: 1
   movementDirection: {x: 0, y: 0, z: 0}
   weapon: {fileID: 8660120394135366029}
-  mainCamera: {fileID: 0}
+  mainCamera: {fileID: 7966256580584243639}
 --- !u!114 &6395072246883821563
 MonoBehaviour:
   m_ObjectHideFlags: 0
