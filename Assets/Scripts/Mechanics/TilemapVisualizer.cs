@@ -19,6 +19,8 @@ namespace Mechanics
         public TileBase grassTile;
 
         public uint forestOffset = 3;
+        public int minMapPoint = -25;
+        public int maxMapPoint = 175;
 
         public void Clear()
         {
@@ -41,8 +43,8 @@ namespace Mechanics
 
         public void PaintForest()
         {
-            for (var i = -50; i < 200; ++i)
-            for (var j = -50; j < 200; ++j)
+            for (var i = minMapPoint; i < maxMapPoint; ++i)
+            for (var j = minMapPoint; j < maxMapPoint; ++j)
             {
                 var position = new Vector2Int(i, j);
                 PaintTile(position, forestTilemap, treeTile);
@@ -73,8 +75,8 @@ namespace Mechanics
 
         public void PaintLawns()
         {
-            for (var i = -50; i < 200; ++i)
-            for (var j = -50; j < 200; ++j)
+            for (var i = minMapPoint; i < maxMapPoint; ++i)
+            for (var j = minMapPoint; j < maxMapPoint; ++j)
             {
                 var position = new Vector2Int(i, j);
                 PaintTile(position, floorTilemap, lawnTile);

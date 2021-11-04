@@ -1123,6 +1123,8 @@ MonoBehaviour:
   stoneTile: {fileID: 11400000, guid: b2e8b379b4eaba94ca473330d677fb70, type: 2}
   grassTile: {fileID: 11400000, guid: 0c99d08028e3e1843a8d6ef87702ce76, type: 2}
   forestOffset: 3
+  minMapPoint: -5
+  maxMapPoint: 155
 --- !u!4 &912558827
 Transform:
   m_ObjectHideFlags: 0
