@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 679201106112048997, guid: 5ef9c010af1fd244581327cc568ea328, type: 3}
       propertyPath: treeTile
       value: 
-      objectReference: {fileID: 11400000, guid: 6fcec9467c886c441a72ca7e823ec9a0, type: 2}
+      objectReference: {fileID: 11400000, guid: 9c590a8890825b44aafe2ce3cd11ae97, type: 2}
     - target: {fileID: 679201106112048997, guid: 5ef9c010af1fd244581327cc568ea328, type: 3}
       propertyPath: floorTilemap
       value: 
@@ -2225,7 +2225,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2731413826383227252, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
       propertyPath: m_SortingLayer
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2731413826383227252, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
       propertyPath: m_SortingOrder
@@ -2233,7 +2233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2731413826383227252, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
       propertyPath: m_SortingLayerID
-      value: 0
+      value: 2026258913
       objectReference: {fileID: 0}
     - target: {fileID: 2731413826383227254, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
       propertyPath: m_BodyType
@@ -2249,11 +2249,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2731413826383227255, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2731413826383227255, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2731413826383227255, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
       propertyPath: m_LocalPosition.x
