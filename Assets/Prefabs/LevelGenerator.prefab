@@ -46,11 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainRoomSize: 150
   splitCount: 4
+  infinityGeneration: 0
   splitRatio: 0.25
-  sprite: {fileID: 5745822309285970392, guid: 35a159963c60697418fa4c7e1632b92b, type: 3}
   minRoomSize: 10
   time: 1
-  tilemapVisualizer: {fileID: 679201106112048997}
+  tilemap: {fileID: 679201106112048997}
 --- !u!1001 &4611590214666040453
 PrefabInstance:
   m_ObjectHideFlags: 0

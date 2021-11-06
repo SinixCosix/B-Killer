@@ -46,6 +46,7 @@ MonoBehaviour:
   floorTilemap: {fileID: 0}
   forestTilemap: {fileID: 0}
   decorationsTilemap: {fileID: 0}
+  obstaclesTilemap: {fileID: 0}
   pathTile: {fileID: 11400000, guid: ed68045ff52bbf24a89c5a7805492484, type: 2}
   lawnTile: {fileID: 11400000, guid: 6fcec9467c886c441a72ca7e823ec9a0, type: 2}
   treeTile: {fileID: 11400000, guid: 9c590a8890825b44aafe2ce3cd11ae97, type: 2}
