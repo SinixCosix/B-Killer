@@ -41,8 +41,7 @@ namespace Mechanics
             tilemap.PaintLawns(_lawns);
             tilemap.PaintPaths(_paths);
             tilemap.PaintForest();
-
-
+            
             tilemap.Cut(_lawns);
             tilemap.Cut(_paths);
 
