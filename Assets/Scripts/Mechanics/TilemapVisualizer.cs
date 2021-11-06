@@ -28,6 +28,7 @@ namespace Mechanics
             floorTilemap.ClearAllTiles();
             forestTilemap.ClearAllTiles();
             decorationsTilemap.ClearAllTiles();
+            obstaclesTilemap.ClearAllTiles();
         }
 
         public void PaintDecorations(IEnumerable<Vector2Int> points, IEnumerable<Vector2Int> paths)
