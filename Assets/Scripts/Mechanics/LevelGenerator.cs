@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,15 +10,15 @@ namespace Mechanics
     {
         public uint mainRoomSize = 100;
         public uint splitCount = 5;
+        public bool infinityGeneration;
 
         public float splitRatio = 0.25f;
         private float _splitRatio;
 
-        public GameObject sprite;
         public uint minRoomSize = 6;
         public float time = 2;
 
-        public TilemapVisualizer tilemapVisualizer;
+        public TilemapVisualizer tilemap;
 
         private readonly List<Rect> _lawns = new List<Rect>();
         private readonly HashSet<Vector2Int> _paths = new HashSet<Vector2Int>();
@@ -28,32 +27,45 @@ namespace Mechanics
 
         private float _time;
 
+        private void Generate()
+        {
+            Clear();
+
+            var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
+            GenerateLawns(rect, splitCount);
+            GeneratePaths();
+            GenerateDecorations(_lawns);
+            GenerateDecorations(_paths);
+                
+            tilemap.PaintWalls();
+            tilemap.PaintLawns(_lawns);
+            tilemap.PaintPaths(_paths);
+            tilemap.PaintForest();
+
+
+            tilemap.Cut(_lawns);
+            tilemap.Cut(_paths);
+
+            tilemap.PaintDecorations(_decorations, _paths);
+        }
+
         private void Start()
         {
             _time = time;
+            Generate();
         }
 
         private void Update()
         {
+            if (!infinityGeneration)
+                return;
+            
             _splitRatio = 1 - splitRatio;
             if (_time < 0)
             {
                 _time = time;
-                Clear();
 
-                var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
-                GenerateLawns(rect, splitCount);
-                GeneratePaths();
-                GenerateDecorations(_lawns);
-                GenerateDecorations(_paths);
-                
-
-                tilemapVisualizer.PaintLawns();
-                tilemapVisualizer.PaintForest();
-                tilemapVisualizer.PaintPaths(_paths);
-                tilemapVisualizer.PaintDecorations(_decorations, _paths);
-                tilemapVisualizer.CutForest(_lawns);
-                tilemapVisualizer.CutForest(_paths);
+                Generate();
             }
             else
                 _time -= Time.deltaTime;
@@ -93,7 +105,7 @@ namespace Mechanics
             _lawns.Clear();
             _paths.Clear();
             _decorations.Clear();
-            tilemapVisualizer.Clear();
+            tilemap.Clear();
         }
 
         private void GenerateLawns(Rect rect, uint parts)

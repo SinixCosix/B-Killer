@@ -50,7 +50,7 @@ MonoBehaviour:
   sprite: {fileID: 5745822309285970392, guid: 35a159963c60697418fa4c7e1632b92b, type: 3}
   minRoomSize: 10
   time: 1
-  tilemapVisualizer: {fileID: 0}
+  tilemapVisualizer: {fileID: 679201106112048997}
 --- !u!1001 &4611590214666040453
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -125,3 +125,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3932391324892421089, guid: 1f1256741587b8f489e4ff1abf620d07, type: 3}
   m_PrefabInstance: {fileID: 4611590214666040453}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &679201106112048997 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3932391324892421088, guid: 1f1256741587b8f489e4ff1abf620d07, type: 3}
+  m_PrefabInstance: {fileID: 4611590214666040453}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87ccbf8f63d4f898d16167a5bdb88b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

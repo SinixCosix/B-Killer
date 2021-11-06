@@ -11,6 +11,7 @@ namespace Mechanics
         public Tilemap floorTilemap;
         public Tilemap forestTilemap;
         public Tilemap decorationsTilemap;
+        public Tilemap obstaclesTilemap;
 
         public TileBase pathTile;
         public TileBase lawnTile;
@@ -41,17 +42,27 @@ namespace Mechanics
             }
         }
 
+        public void PaintWalls()
+        {
+            FillTileMap(obstaclesTilemap, lawnTile);
+        }
+
         public void PaintForest()
+        {
+            FillTileMap(forestTilemap, treeTile);
+        }
+
+        private void FillTileMap(Tilemap tilemap, TileBase tile)
         {
             for (var i = minMapPoint; i < maxMapPoint; ++i)
             for (var j = minMapPoint; j < maxMapPoint; ++j)
             {
                 var position = new Vector2Int(i, j);
-                PaintTile(position, forestTilemap, treeTile);
+                PaintTile(position, tilemap, tile);
             }
         }
 
-        public void CutForest(IEnumerable<Rect> cutSpace)
+        public void Cut(IEnumerable<Rect> cutSpace)
         {
             foreach (var room in cutSpace)
             {
@@ -59,27 +70,28 @@ namespace Mechanics
                 for (var j = room.y - forestOffset; j < room.yMax; ++j)
                 {
                     var position = new Vector2Int((int) i, (int) j);
+                    PaintTile(position, obstaclesTilemap, null);
                     PaintTile(position, forestTilemap, null);
                 }
             }
         }
 
-        public void CutForest(IEnumerable<Vector2Int> cutSpace)
+        public void Cut(IEnumerable<Vector2Int> cutSpace)
         {
-            foreach (var point in cutSpace)
-            {
-                var position = new Vector2Int(point.x, point.y);
-                PaintTile(position, forestTilemap, null);
-            }
+            PaintTiles(cutSpace, obstaclesTilemap, null);
+            PaintTiles(cutSpace, forestTilemap, null);
         }
-
-        public void PaintLawns()
+        
+        public void PaintLawns(IEnumerable<Rect> cutSpace)
         {
-            for (var i = minMapPoint; i < maxMapPoint; ++i)
-            for (var j = minMapPoint; j < maxMapPoint; ++j)
+            foreach (var room in cutSpace)
             {
-                var position = new Vector2Int(i, j);
-                PaintTile(position, floorTilemap, lawnTile);
+                for (var i = room.x; i < room.xMax; ++i)
+                for (var j = room.y - forestOffset; j < room.yMax; ++j)
+                {
+                    var position = new Vector2Int((int) i, (int) j);
+                    PaintTile(position, floorTilemap, lawnTile);
+                }
             }
         }
 
