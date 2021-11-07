@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainRoomSize: 100
-  splitCount: 5
+  splitCount: 4
   splitRatio: 0.25
   minRoomSize: 6
   tilemap: {fileID: 982156611}
@@ -242,8 +242,8 @@ MonoBehaviour:
   stoneTile: {fileID: 11400000, guid: b2e8b379b4eaba94ca473330d677fb70, type: 2}
   grassTile: {fileID: 11400000, guid: 0c99d08028e3e1843a8d6ef87702ce76, type: 2}
   forestOffset: 3
-  minMapPoint: -25
-  maxMapPoint: 175
+  minMapPoint: -5
+  maxMapPoint: 105
 --- !u!1839735485 &1944196912 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 2030479711134841312, guid: ec063129db248294faef52dda3362366, type: 3}
