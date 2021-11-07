@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Gameplay
 {
     public class PlayerController : MonoBehaviour
     {
         public Player player;
+        [NonSerialized] public Vector2 spawnPoint;
 
         private void Start()
         {
@@ -17,8 +19,6 @@ namespace Gameplay
             player.CalculateMouseAngle();
             player.Move();
         }
-        
-        
 
         private void PlayerDeath()
         {
@@ -26,9 +26,9 @@ namespace Gameplay
             Respawn();
         }
 
-        private void Respawn()
+        public void Respawn()
         {
-            player.transform.position = Vector3.zero;
+            player.transform.position = spawnPoint;
             player.health.Heal();
         }
     }

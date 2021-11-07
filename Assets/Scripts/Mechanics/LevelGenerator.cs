@@ -10,24 +10,28 @@ namespace Mechanics
     {
         public uint mainRoomSize = 100;
         public uint splitCount = 5;
-        public bool infinityGeneration;
 
         public float splitRatio = 0.25f;
         private float _splitRatio;
 
         public uint minRoomSize = 6;
-        public float time = 2;
+
+        public Vector2 StartPoint
+        {
+            get
+            {
+                var index = Random.Range(0, _lawns.Count);
+                return _lawns[index].center;
+            }
+        }
 
         public TilemapVisualizer tilemap;
 
         private readonly List<Rect> _lawns = new List<Rect>();
         private readonly HashSet<Vector2Int> _paths = new HashSet<Vector2Int>();
         private readonly HashSet<Vector2Int> _decorations = new HashSet<Vector2Int>();
-        
 
-        private float _time;
-
-        private void Generate()
+        public void Generate()
         {
             Clear();
 
@@ -36,12 +40,12 @@ namespace Mechanics
             GeneratePaths();
             GenerateDecorations(_lawns);
             GenerateDecorations(_paths);
-                
+
             tilemap.PaintWalls();
             tilemap.PaintLawns(_lawns);
             tilemap.PaintPaths(_paths);
             tilemap.PaintForest();
-            
+
             tilemap.Cut(_lawns);
             tilemap.Cut(_paths);
 
@@ -50,24 +54,8 @@ namespace Mechanics
 
         private void Start()
         {
-            _time = time;
-            Generate();
-        }
-
-        private void Update()
-        {
-            if (!infinityGeneration)
-                return;
-            
             _splitRatio = 1 - splitRatio;
-            if (_time < 0)
-            {
-                _time = time;
 
-                Generate();
-            }
-            else
-                _time -= Time.deltaTime;
         }
 
         private void GenerateDecorations(IEnumerable<Rect> lawns)
@@ -77,7 +65,7 @@ namespace Mechanics
                 var minDecorationsCount = rect.width;
                 var maxDecorationsCount = rect.width + rect.height;
                 var decorationsCount = Random.Range(minDecorationsCount, maxDecorationsCount);
-                for (var i =0; i < decorationsCount; ++i)
+                for (var i = 0; i < decorationsCount; ++i)
                 {
                     var x = Random.Range((int) rect.x, (int) rect.xMax);
                     var y = Random.Range((int) rect.y, (int) rect.yMax);
