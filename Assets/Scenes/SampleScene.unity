@@ -196,6 +196,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ef9c010af1fd244581327cc568ea328, type: 3}
+--- !u!50 &306338956 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 2731413826383227254, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
+  m_PrefabInstance: {fileID: 1958994336}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1839735485 &325193931 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 2030479712737066523, guid: ec063129db248294faef52dda3362366, type: 3}
@@ -267,9 +272,17 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
+    - target: {fileID: 2731413826383227258, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
+      propertyPath: rigidbody
+      value: 
+      objectReference: {fileID: 306338956}
     - target: {fileID: 2731413826383227259, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851303734085212707, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5586711000142868481, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
       propertyPath: m_SortingLayer
@@ -277,7 +290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5586711000142868481, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5586711000142868481, guid: 6706ee50936b823498d5ea626ac98387, type: 3}
       propertyPath: m_SortingLayerID

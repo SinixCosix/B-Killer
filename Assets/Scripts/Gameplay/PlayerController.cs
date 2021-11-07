@@ -13,8 +13,8 @@ namespace Gameplay
 
         private void Update()
         {
-            player.CalculateMouseAngle();
             player.Shoot();
+            player.CalculateMouseAngle();
             player.Move();
         }
         

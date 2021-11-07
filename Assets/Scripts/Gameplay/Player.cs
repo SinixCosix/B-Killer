@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Gameplay
@@ -8,6 +9,7 @@ namespace Gameplay
         public Weapon.Weapon weapon;
         public Camera mainCamera;
 
+        public Rigidbody2D rigidbody;
         private float _mouseAngle;
 
         public void Shoot()
@@ -25,17 +27,11 @@ namespace Gameplay
 
         public override void Move()
         {
-            CalculateDirectionMovement();
-            TargetPosition = transform.position + movementDirection * speed;
-
-            base.Move();
+            var mH = Input.GetAxis ("Horizontal");
+            var mV = Input.GetAxis ("Vertical");
+            rigidbody.velocity = new Vector3 (mH * speed, mV * speed);
         }
 
-        private void CalculateDirectionMovement()
-        {
-            movementDirection.x = Input.GetAxisRaw("Horizontal");
-            movementDirection.y = Input.GetAxisRaw("Vertical");
-            movementDirection *= Time.fixedDeltaTime;
-        }
+   
     }
 }
