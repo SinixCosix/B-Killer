@@ -14,11 +14,16 @@ namespace Gameplay.Weapon
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log(other.name);
             var enemy = other.gameObject.GetComponent<AbstractEnemy>();
-            if (enemy == null) return;
-            
-            enemy.ApplyDamage(damage);
+            if (enemy != null)
+                enemy.ApplyDamage(damage);
+
+            var player = other.gameObject.GetComponent<Player>();
+            if (player != null)
+                return;
+
+            Debug.Log($"name: {other.name}");
+
             Destroy(gameObject);
         }
     }
