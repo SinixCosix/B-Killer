@@ -15,19 +15,20 @@ namespace Mechanics
         private float _splitRatio;
 
         public uint minRoomSize = 6;
+        public MobSpawner mobSpawner;
 
         public Vector2 StartPoint
         {
             get
             {
-                var index = Random.Range(0, _lawns.Count);
-                return _lawns[index].center;
+                var index = Random.Range(0, _rooms.Count);
+                return _rooms[index].center;
             }
         }
 
         public TilemapVisualizer tilemap;
 
-        private readonly List<Rect> _lawns = new List<Rect>();
+        private readonly List<Rect> _rooms = new List<Rect>();
         private readonly HashSet<Vector2Int> _paths = new HashSet<Vector2Int>();
         private readonly HashSet<Vector2Int> _decorations = new HashSet<Vector2Int>();
 
@@ -38,15 +39,16 @@ namespace Mechanics
             var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
             GenerateLawns(rect, splitCount);
             GeneratePaths();
-            GenerateDecorations(_lawns);
+            GenerateDecorations(_rooms);
             GenerateDecorations(_paths);
+            mobSpawner.Spawn(_rooms);
 
             tilemap.PaintWalls();
-            tilemap.PaintLawns(_lawns);
+            tilemap.PaintLawns(_rooms);
             tilemap.PaintPaths(_paths);
             tilemap.PaintForest();
 
-            tilemap.Cut(_lawns);
+            tilemap.Cut(_rooms);
             tilemap.Cut(_paths);
 
             tilemap.PaintDecorations(_decorations, _paths);
@@ -89,7 +91,8 @@ namespace Mechanics
 
         private void Clear()
         {
-            _lawns.Clear();
+            mobSpawner.Clear();
+            _rooms.Clear();
             _paths.Clear();
             _decorations.Clear();
             tilemap.Clear();
@@ -99,7 +102,7 @@ namespace Mechanics
         {
             if (parts == 0)
             {
-                _lawns.Add(ReshapeRect(rect));
+                _rooms.Add(ReshapeRect(rect));
                 return;
             }
 
@@ -151,10 +154,10 @@ namespace Mechanics
 
         private void GeneratePaths()
         {
-            for (var i = 0; i < _lawns.Count - 1; ++i)
+            for (var i = 0; i < _rooms.Count - 1; ++i)
             {
-                var room = _lawns[i].center;
-                var nextRoom = _lawns[i + 1].center;
+                var room = _rooms[i].center;
+                var nextRoom = _rooms[i + 1].center;
                 var position = room;
 
                 while ((int) position.x != (int) nextRoom.x)
