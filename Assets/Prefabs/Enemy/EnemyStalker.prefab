@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 2001179727236752192}
   - component: {fileID: 2001179727236752193}
   - component: {fileID: 2001179727236752194}
-  - component: {fileID: 5108866608475168222}
-  - component: {fileID: 3703884338459840121}
-  - component: {fileID: 2941246839774757255}
+  - component: {fileID: 2001179727236752195}
+  - component: {fileID: -1558671152997453111}
   m_Layer: 0
-  m_Name: EnemyStalkerPatrol
+  m_Name: EnemyStalker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.3773585, g: 0.115699545, b: 0.115699545, a: 1}
+  m_Color: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -110,9 +109,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7, y: 1.7}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5108866608475168222
+--- !u!114 &2001179727236752195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,18 +120,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2001179727236752188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f50f313f36247b1b831d2050a0b2b12, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a1b8b06b3404cb18723c01323dffc10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  health: {fileID: 3703884338459840121}
+  health: {fileID: -1558671152997453111}
   damage: 1
   player: {fileID: 0}
   minPlayerDistance: 5
-  minTargetDistance: 0.02
-  patrolPath: []
-  waitTimeOnSpotSec: 1
---- !u!114 &3703884338459840121
+  minTargetDistance: 0.01
+--- !u!114 &-1558671152997453111
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,24 +142,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 5
---- !u!50 &2941246839774757255
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001179727236752188}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0

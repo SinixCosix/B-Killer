@@ -10,6 +10,7 @@ namespace Gameplay
 
         private void Start()
         {
+            player = Player.singleton;
             player.health.Death += PlayerDeath;
         }
 

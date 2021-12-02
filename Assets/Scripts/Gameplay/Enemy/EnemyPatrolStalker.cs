@@ -23,7 +23,7 @@
 
         private void StalkPlayer()
         {
-            TargetPosition = player.transform.position;
+            TargetPosition = Player.transform.position;
             Move();
         }
     }

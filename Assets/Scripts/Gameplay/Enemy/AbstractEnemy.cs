@@ -1,16 +1,18 @@
 using System;
+using Mechanics;
 using UnityEngine;
 
 namespace Gameplay.Enemy
 {
     public abstract class AbstractEnemy : Entity
     {
-        public Player player;
+        protected Player Player;
         public float minPlayerDistance = 5f;
         public float minTargetDistance = 0.01f;
 
         protected void Awake()
         {
+            Player = Player.singleton;
             health.Death += Death;
         }
 
@@ -21,7 +23,7 @@ namespace Gameplay.Enemy
 
         protected bool IsNextToPlayer()
         {
-            var playerPosition = player.transform.position;
+            var playerPosition = Player.transform.position;
             var currentPosition = transform.position;
 
             return Vector2.Distance(currentPosition, playerPosition) < minPlayerDistance;
@@ -32,7 +34,7 @@ namespace Gameplay.Enemy
             var playerComponent = collision.gameObject.GetComponent<Player>();
             if (playerComponent != null)
             {
-                player.ApplyDamage(damage);
+                Player.ApplyDamage(damage);
             }
         }
     }

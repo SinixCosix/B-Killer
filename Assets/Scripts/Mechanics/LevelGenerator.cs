@@ -57,7 +57,6 @@ namespace Mechanics
         private void Start()
         {
             _splitRatio = 1 - splitRatio;
-
         }
 
         private void GenerateDecorations(IEnumerable<Rect> lawns)

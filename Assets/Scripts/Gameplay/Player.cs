@@ -5,6 +5,7 @@ namespace Gameplay
 {
     public class Player : Entity
     {
+        public static Player singleton;
         public Vector3 movementDirection;
         public Weapon.Weapon weapon;
         public Camera mainCamera;
@@ -16,6 +17,11 @@ namespace Gameplay
         {
             if (Input.GetButtonDown("Fire1"))
                 weapon.Shoot(_mouseAngle);
+        }
+
+        private void Awake()
+        {
+            singleton = this;
         }
 
         public void CalculateMouseAngle()

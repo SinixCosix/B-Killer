@@ -19,6 +19,7 @@ namespace Gameplay
             transform.position = position; 
         }
 
+        // TODO: move to PlayerController
         public void ApplyDamage(int value)
         {
             

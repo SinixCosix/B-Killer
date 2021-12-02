@@ -38,6 +38,7 @@ namespace Mechanics
 
         private void SpawnPlayer()
         {
+            Debug.Log(player);
             player.spawnPoint = generator.StartPoint;
             player.Respawn();
         }

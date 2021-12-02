@@ -18,8 +18,6 @@ namespace Mechanics
             {
                 // var mobsCount = (int)room.width / 3;
                 var mob = Instantiate(enemyPrefab, room.center, Quaternion.identity);
-                var s = mob.GetComponent<EnemyStalker>();
-                s.player = player;
                 _mobs.Add(mob);
             }
         }
