@@ -10,6 +10,7 @@
 
 # Packages
 Assets/2DGamekit
+Assets/AstarPathfindingProject
 
 # User-specific files
 *.rsuser
