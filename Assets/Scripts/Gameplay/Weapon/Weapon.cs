@@ -6,11 +6,15 @@ namespace Gameplay.Weapon
     {
         public Transform firePoint;
         public GameObject bulletPrefab;
-        
+
+        public float bulletForce = 20f;
+
         public void Shoot(float rotation)
         {
-            firePoint.eulerAngles = new Vector3(0,0, rotation);
-            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            firePoint.eulerAngles = new Vector3(0, 0, rotation);
+            var bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            var rb = bullet.GetComponent<Rigidbody2D>();
+            rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
         }
     }
 }
