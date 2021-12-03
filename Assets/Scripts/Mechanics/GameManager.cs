@@ -1,5 +1,4 @@
-﻿using System;
-using Gameplay;
+﻿using Gameplay;
 using UnityEngine;
 
 namespace Mechanics
@@ -39,7 +38,7 @@ namespace Mechanics
         private void SpawnPlayer()
         {
             Debug.Log(player);
-            player.spawnPoint = generator.StartPoint;
+            player.SpawnPoint = generator.StartPoint;
             player.Respawn();
         }
     }

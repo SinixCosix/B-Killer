@@ -6,11 +6,11 @@ namespace Gameplay
     public class PlayerController : MonoBehaviour
     {
         public Player player;
-        [NonSerialized] public Vector2 spawnPoint;
+        [NonSerialized] public Vector2 SpawnPoint;
 
         private void Start()
         {
-            player = Player.singleton;
+            player = Player.Singleton;
             player.health.Death += PlayerDeath;
         }
 
@@ -29,7 +29,7 @@ namespace Gameplay
 
         public void Respawn()
         {
-            player.transform.position = spawnPoint;
+            player.transform.position = SpawnPoint;
             player.health.Heal();
         }
     }

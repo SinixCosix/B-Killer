@@ -12,7 +12,7 @@ namespace Gameplay.Enemy
 
         protected void Awake()
         {
-            Player = Player.singleton;
+            Player = Player.Singleton;
             health.Death += Death;
         }
 

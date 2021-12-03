@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Gameplay;
-using Gameplay.Enemy;
 using UnityEngine;
 
 namespace Mechanics

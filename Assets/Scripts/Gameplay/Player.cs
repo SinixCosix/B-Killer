@@ -1,16 +1,15 @@
-using System;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class Player : Entity
     {
-        public static Player singleton;
+        public static Player Singleton;
         public Vector3 movementDirection;
         public Weapon.Weapon weapon;
         public Camera mainCamera;
 
-        public Rigidbody2D rigidbody;
+        public new Rigidbody2D rigidbody;
         private float _mouseAngle;
 
         public void Shoot()
@@ -21,7 +20,7 @@ namespace Gameplay
 
         private void Awake()
         {
-            singleton = this;
+            Singleton = this;
         }
 
         public void CalculateMouseAngle()
