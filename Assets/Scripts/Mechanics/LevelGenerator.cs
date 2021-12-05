@@ -8,7 +8,7 @@ namespace Mechanics
 {
     public class LevelGenerator : MonoBehaviour
     {
-        public uint mainRoomSize = 100;
+        public uint mapSize = 100;
         public uint splitCount = 5;
 
         public float splitRatio = 0.25f;
@@ -31,27 +31,36 @@ namespace Mechanics
         private readonly List<Rect> _rooms = new List<Rect>();
         private readonly HashSet<Vector2Int> _paths = new HashSet<Vector2Int>();
         private readonly HashSet<Vector2Int> _decorations = new HashSet<Vector2Int>();
+        private readonly HashSet<Vector2Int> _trees = new HashSet<Vector2Int>();
 
         public void Generate()
         {
             Clear();
 
-            var rect = new Rect(0, 0, mainRoomSize, mainRoomSize);
+            var rect = new Rect(0, 0, mapSize, mapSize);
             GenerateLawns(rect, splitCount);
             GeneratePaths();
             GenerateDecorations(_rooms);
             GenerateDecorations(_paths);
+            GenerateTrees();
             mobSpawner.Spawn(_rooms);
 
             tilemap.PaintWalls();
             tilemap.PaintLawns(_rooms);
             tilemap.PaintPaths(_paths);
-            tilemap.PaintForest();
+            tilemap.PaintForest(_trees);
 
             tilemap.Cut(_rooms);
             tilemap.Cut(_paths);
 
             tilemap.PaintDecorations(_decorations, _paths);
+        }
+
+        private void GenerateTrees()
+        {
+            for (var y = 0; y < mapSize; y += 4)
+            for (var x = 0; x < mapSize; x += Random.Range(2, 6))
+                _trees.Add(new Vector2Int(x, y + Random.Range(-2, 2)));
         }
 
         private void Start()
