@@ -36,7 +36,7 @@ namespace Mechanics
         public void Generate()
         {
             Clear();
-
+            
             var rect = new Rect(0, 0, mapSize, mapSize);
             GenerateLawns(rect, splitCount);
             GeneratePaths();
@@ -63,7 +63,7 @@ namespace Mechanics
                 _trees.Add(new Vector2Int(x, y + Random.Range(-2, 2)));
         }
 
-        private void Start()
+        private void Awake()
         {
             _splitRatio = 1 - splitRatio;
         }
