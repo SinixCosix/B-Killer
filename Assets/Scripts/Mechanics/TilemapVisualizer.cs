@@ -65,37 +65,16 @@ namespace Mechanics
             }
         }
 
-        public void Cut(IEnumerable<Rect> cutSpace)
-        {
-            foreach (var room in cutSpace)
-            {
-                for (var i = room.x; i < room.xMax; ++i)
-                for (var j = room.y - forestOffset; j < room.yMax; ++j)
-                {
-                    var position = new Vector2Int((int) i, (int) j);
-                    PaintTile(position, obstaclesTilemap, null);
-                    PaintTile(position, forestTilemap, null);
-                }
-            }
-        }
-
         public void Cut(IEnumerable<Vector2Int> cutSpace)
         {
             PaintTiles(cutSpace, obstaclesTilemap, null);
             PaintTiles(cutSpace, forestTilemap, null);
         }
         
-        public void PaintLawns(IEnumerable<Rect> cutSpace)
+        public void PaintLawns(IEnumerable<Vector2Int> points)
         {
-            foreach (var room in cutSpace)
-            {
-                for (var i = room.x; i < room.xMax; ++i)
-                for (var j = room.y - forestOffset; j < room.yMax; ++j)
-                {
-                    var position = new Vector2Int((int) i, (int) j);
+            foreach (var position in points)
                     PaintTile(position, floorTilemap, lawnTile);
-                }
-            }
         }
 
         public void PaintPaths(IEnumerable<Vector2Int> pathPositions)

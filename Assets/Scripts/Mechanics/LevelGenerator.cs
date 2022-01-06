@@ -28,9 +28,10 @@ namespace Mechanics
 
         public TilemapVisualizer tilemap;
 
-        private List<Rect> _rooms = new List<Rect>();
+        private readonly List<Rect> _rooms = new List<Rect>();
         private readonly HashSet<Vector2Int> _roomPoints = new HashSet<Vector2Int>();
         private readonly HashSet<Vector2Int> _roomCenters = new HashSet<Vector2Int>();
+        
         private readonly HashSet<Vector2Int> _paths = new HashSet<Vector2Int>();
         private readonly HashSet<Vector2Int> _decorations = new HashSet<Vector2Int>();
         private readonly HashSet<Vector2Int> _trees = new HashSet<Vector2Int>();
@@ -47,14 +48,13 @@ namespace Mechanics
             mobSpawner.Spawn(_rooms);
 
             tilemap.PaintWalls();
-            tilemap.PaintLawns(_rooms);
+            tilemap.PaintLawns(_roomPoints);
             tilemap.PaintPaths(_paths);
             tilemap.PaintForest(_trees);
-
-            tilemap.Cut(_rooms);
-            tilemap.Cut(_paths);
-
             tilemap.PaintDecorations(_decorations, _paths);
+
+            tilemap.Cut(_roomPoints);
+            tilemap.Cut(_paths);
         }
 
         private void GenerateTrees()
@@ -117,6 +117,7 @@ namespace Mechanics
                 room = ReshapeRect(room);
                 _rooms[i] = room;
             }
+            GenerateLawns(_rooms);
         }
         private void GenerateLawns(Rect rect, uint parts)
         {
@@ -155,6 +156,22 @@ namespace Mechanics
             var y2 = splitByHorizontal ? y1 + height1 : y1;
             var rect2 = new Rect(x2, y2, width2, height2);
             GenerateLawns(rect2, parts - 1);
+        }
+
+        private void GenerateLawns(IEnumerable<Rect> rooms)
+        {
+            foreach (var room in rooms)
+            {
+                var center = new Vector2Int((int) room.center.x, (int) room.center.y);
+                _roomCenters.Add(center);
+                
+                for (var i = room.x; i < room.xMax; ++i)
+                for (var j = room.y; j < room.yMax; ++j)
+                {
+                    var position = new Vector2Int((int) i, (int) j);
+                    _roomPoints.Add(position);
+                }
+            }
         }
 
         private Rect ReshapeRect(Rect rect)
