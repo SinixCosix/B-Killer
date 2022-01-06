@@ -28,7 +28,9 @@ namespace Mechanics
 
         public TilemapVisualizer tilemap;
 
-        private readonly List<Rect> _rooms = new List<Rect>();
+        private List<Rect> _rooms = new List<Rect>();
+        private readonly HashSet<Vector2Int> _roomPoints = new HashSet<Vector2Int>();
+        private readonly HashSet<Vector2Int> _roomCenters = new HashSet<Vector2Int>();
         private readonly HashSet<Vector2Int> _paths = new HashSet<Vector2Int>();
         private readonly HashSet<Vector2Int> _decorations = new HashSet<Vector2Int>();
         private readonly HashSet<Vector2Int> _trees = new HashSet<Vector2Int>();
@@ -37,8 +39,7 @@ namespace Mechanics
         {
             Clear();
             
-            var rect = new Rect(0, 0, mapSize, mapSize);
-            GenerateLawns(rect, splitCount);
+            GenerateLawns();
             GeneratePaths();
             GenerateDecorations(_rooms);
             GenerateDecorations(_paths);
@@ -106,11 +107,22 @@ namespace Mechanics
             tilemap.Clear();
         }
 
+        private void GenerateLawns()
+        {
+            var rect = new Rect(0, 0, mapSize, mapSize);
+            GenerateLawns(rect, splitCount);
+            for (var i = 0; i < _rooms.Count; i++)
+            {
+                var room = _rooms[i];
+                room = ReshapeRect(room);
+                _rooms[i] = room;
+            }
+        }
         private void GenerateLawns(Rect rect, uint parts)
         {
             if (parts == 0)
             {
-                _rooms.Add(ReshapeRect(rect));
+                _rooms.Add(rect);
                 return;
             }
 
