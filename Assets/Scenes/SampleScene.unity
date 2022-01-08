@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c7ef3ecdce48288f797e06752a6057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mobSpawner: {fileID: 982156612}
   generator: {fileID: 982156610}
   player: {fileID: 1577901858}
 --- !u!4 &982156609
@@ -199,7 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f096348868164edd9e05e05ec9171e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mobSpawner: {fileID: 982156612}
   painter: {fileID: 982156611}
 --- !u!114 &982156611
 MonoBehaviour:
@@ -239,7 +239,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2001179727236752188, guid: 21ce7d0e8d98943419f491d6b22601cb, type: 3}
-  player: {fileID: 0}
 --- !u!114 &982156613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fa164b72a52498ab3e0ea40f9f037c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 2
+  time: 1
   infinityGeneration: 0
   mapSize: 100
   splitCount: 4

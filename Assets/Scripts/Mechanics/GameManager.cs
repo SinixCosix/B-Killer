@@ -34,9 +34,17 @@ namespace Mechanics
 
         private void CreateMap()
         {
+            Clear();
+            
             generator.Generate();
             SpawnPlayer();
             mobSpawner.Spawn(generator.Lawns);
+        }
+
+        private void Clear()
+        {
+            generator.Clear();
+            mobSpawner.Clear();
         }
 
         private void SpawnPlayer()

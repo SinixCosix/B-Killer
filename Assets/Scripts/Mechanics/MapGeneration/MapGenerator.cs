@@ -25,8 +25,6 @@ namespace Mechanics.MapGeneration
 
         public void Generate()
         {
-            Clear();
-
             LawnsGenerator.Generate();
             PathsGenerator.Generate();
             DecorationsGenerator.Generate();
@@ -42,19 +40,22 @@ namespace Mechanics.MapGeneration
             painter.Cut(Paths);
         }
 
-        private void Clear()
+        public void Clear()
         {
             Lawns.Clear();
+            PointsOfLawns.Clear();
             Paths.Clear();
             Decorations.Clear();
+            Forest.Clear();
+            
             painter.Clear();
+            
         }
 
-        public Vector2 SelectStartPoint()
+        public void SelectStartPoint()
         {
             var index = Random.Range(0, Lawns.Count);
             StartPoint = Lawns[index].center;
-            return StartPoint;
         }
     }
 }
