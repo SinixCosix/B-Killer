@@ -22,14 +22,7 @@ namespace Mechanics.MapGeneration
                 return;
             }
 
-            bool splitByVertical;
-            if (rect.width / rect.height >= 1.25)
-                splitByVertical = true;
-            else if (rect.height / rect.width >= 1.25)
-                splitByVertical = false;
-            else
-                splitByVertical = Random.Range(0f, 1f) > 0.5f;
-
+            var splitByVertical = SelectSplitAxis(rect);
             var splitByHorizontal = !splitByVertical;
 
             var gameManager = GameManager.Instance;
@@ -52,6 +45,19 @@ namespace Mechanics.MapGeneration
             var y2 = splitByHorizontal ? y1 + height1 : y1;
             var rect2 = new Rect(x2, y2, width2, height2);
             Split(rects, rect2, parts - 1);
+        }
+
+        private static bool SelectSplitAxis(Rect rect)
+        {
+            bool splitByVertical;
+            if (rect.width / rect.height >= 1.25)
+                splitByVertical = true;
+            else if (rect.height / rect.width >= 1.25)
+                splitByVertical = false;
+            else
+                splitByVertical = Random.Range(0f, 1f) > 0.5f;
+
+            return splitByVertical;
         }
     }
 }

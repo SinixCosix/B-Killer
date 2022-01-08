@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Codice.Client.BaseCommands;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,26 +9,30 @@ namespace Mechanics.MapGeneration
 {
     public class MapGenerator : MonoBehaviour
     {
+        public static MapGenerator Instance;
         public MobSpawner mobSpawner;
         public Vector2 StartPoint
         {
             get
             {
-                var index = Random.Range(0, _lawns.Count);
-                return _lawns[index].center;
+                var index = Random.Range(0, Lawns.Count);
+                return Lawns[index].center;
             }
         }
 
         public TilemapVisualizer tilemap;
+        [NonSerialized]
+        public List<Rect> Lawns = new List<Rect>();
+        public HashSet<Vector2Int> RoomPoints = new HashSet<Vector2Int>();
 
-        private List<Rect> _lawns = new List<Rect>();
-        private HashSet<Vector2Int> _roomPoints = new HashSet<Vector2Int>();
+        public  HashSet<Vector2Int> Paths = new HashSet<Vector2Int>();
+        public  HashSet<Vector2Int> Decorations = new HashSet<Vector2Int>();
+        public  HashSet<Vector2Int> Trees = new HashSet<Vector2Int>();
 
-        private readonly HashSet<Vector2Int> _paths = new HashSet<Vector2Int>();
-        private readonly HashSet<Vector2Int> _decorations = new HashSet<Vector2Int>();
-        private readonly HashSet<Vector2Int> _trees = new HashSet<Vector2Int>();
-
-    
+        public MapGenerator()
+        {
+            Instance = this;
+        }
 
         public void Generate()
         {
@@ -35,27 +40,26 @@ namespace Mechanics.MapGeneration
 
             GenerateLawns();
             GeneratePaths();
-            GenerateDecorations(_lawns);
-            GenerateDecorations(_paths);
+            GenerateDecorations();
             GenerateTrees();
-            mobSpawner.Spawn(_lawns);
+            mobSpawner.Spawn(Lawns);
 
             tilemap.PaintWalls();
-            tilemap.PaintLawns(_roomPoints);
-            tilemap.PaintPaths(_paths);
-            tilemap.PaintForest(_trees);
-            tilemap.PaintDecorations(_decorations, _paths);
+            tilemap.PaintLawns(RoomPoints);
+            tilemap.PaintPaths(Paths);
+            tilemap.PaintForest(Trees);
+            tilemap.PaintDecorations(Decorations, Paths);
 
-            tilemap.Cut(_roomPoints);
-            tilemap.Cut(_paths);
+            tilemap.Cut(RoomPoints);
+            tilemap.Cut(Paths);
         }
 
         private void Clear()
         {
             mobSpawner.Clear();
-            _lawns.Clear();
-            _paths.Clear();
-            _decorations.Clear();
+            Lawns.Clear();
+            Paths.Clear();
+            Decorations.Clear();
             tilemap.Clear();
         }
 
@@ -64,54 +68,32 @@ namespace Mechanics.MapGeneration
             var generator = new LawnGenerator();
             generator.Generate();
 
-            _lawns = generator.Lawns;
-            _roomPoints = generator.PointsOfLawns;
+            Lawns = generator.Lawns;
+            RoomPoints = generator.PointsOfLawns;
         }
 
         private void GenerateTrees()
         {
             for (var y = 0; y < GameManager.Instance.mapSize; y += 4)
             for (var x = 0; x < GameManager.Instance.mapSize; x += Random.Range(2, 6))
-                _trees.Add(new Vector2Int(x, y + Random.Range(-2, 2)));
+                Trees.Add(new Vector2Int(x, y + Random.Range(-2, 2)));
         }
 
 
-        private void GenerateDecorations(IEnumerable<Rect> lawns)
+        private void GenerateDecorations()
         {
-            foreach (var rect in lawns)
-            {
-                var minDecorationsCount = rect.width;
-                var maxDecorationsCount = rect.width + rect.height;
-                var decorationsCount = Random.Range(minDecorationsCount, maxDecorationsCount);
-                for (var i = 0; i < decorationsCount; ++i)
-                {
-                    var x = Random.Range((int) rect.x, (int) rect.xMax);
-                    var y = Random.Range((int) rect.y, (int) rect.yMax);
-                    _decorations.Add(new Vector2Int(x, y));
-                }
-            }
+            var generator = new DecorationGenerator();
+            generator.Generate();
         }
 
-        private void GenerateDecorations(ICollection<Vector2Int> paths)
-        {
-            var minDecorationsCount = paths.Count / 6;
-            var maxDecorationsCount = paths.Count / 5;
-            var decorationsCount = Random.Range(minDecorationsCount, maxDecorationsCount);
-            for (var i = 0; i < decorationsCount; ++i)
-            {
-                var index = Random.Range(0, paths.Count);
-                var point = paths.ElementAt(index);
-                _decorations.Add(point);
-            }
-        }
-
-
+        
+        
         private void GeneratePaths()
         {
-            for (var i = 0; i < _lawns.Count - 1; ++i)
+            for (var i = 0; i < Lawns.Count - 1; ++i)
             {
-                var room = _lawns[i].center;
-                var nextRoom = _lawns[i + 1].center;
+                var room = Lawns[i].center;
+                var nextRoom = Lawns[i + 1].center;
                 var position = room;
 
                 while ((int) position.x != (int) nextRoom.x)
@@ -124,7 +106,7 @@ namespace Mechanics.MapGeneration
                     for (var j = 0; j < 2; ++j)
                     {
                         var y = (int) position.y + j;
-                        _paths.Add(new Vector2Int((int) position.x, y));
+                        Paths.Add(new Vector2Int((int) position.x, y));
                     }
                 }
 
@@ -138,7 +120,7 @@ namespace Mechanics.MapGeneration
                     for (var j = 0; j < 2; ++j)
                     {
                         var x = (int) position.x + j;
-                        _paths.Add(new Vector2Int(x, (int) position.y));
+                        Paths.Add(new Vector2Int(x, (int) position.y));
                     }
                 }
             }

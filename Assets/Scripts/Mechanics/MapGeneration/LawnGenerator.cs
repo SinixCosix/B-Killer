@@ -18,7 +18,6 @@ namespace Mechanics.MapGeneration
 
         public void Generate()
         {
-            var bspTree = new BinarySpacePartitionTree();
             Lawns = BinarySpacePartitionTree.Split().ToList();
 
             for (var i = 0; i < Lawns.Count; i++)
