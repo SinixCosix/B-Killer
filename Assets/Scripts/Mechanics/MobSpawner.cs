@@ -7,7 +7,6 @@ namespace Mechanics
     public class MobSpawner : MonoBehaviour
     {
         public GameObject enemyPrefab;
-        public Player player;
 
         private readonly List<GameObject> _mobs = new List<GameObject>();
 

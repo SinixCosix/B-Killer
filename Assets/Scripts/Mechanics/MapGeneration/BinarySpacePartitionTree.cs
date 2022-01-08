@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Mechanics.MapGeneration
 {
-    public class BinarySpacePartitionTree
+    public static class BinarySpacePartitionTree
     {
-       public static IEnumerable<Rect> Split()
+        public static IEnumerable<Rect> Split()
         {
             var rects = new List<Rect>();
-            var rect = new Rect(0, 0, GameManager.Instance.mapSize, GameManager.Instance.mapSize);
-            Split(rects, rect, GameManager.Instance.splitCount);
+            var rect = new Rect(0, 0, Settings.Instance.mapSize, Settings.Instance.mapSize);
+            Split(rects, rect, Settings.Instance.splitCount);
 
             return rects;
         }
@@ -25,12 +25,12 @@ namespace Mechanics.MapGeneration
             var splitByVertical = SelectSplitAxis(rect);
             var splitByHorizontal = !splitByVertical;
 
-            var gameManager = GameManager.Instance;
+            var settings = Settings.Instance;
             var width1 = splitByVertical
-                ? Random.Range(rect.width * gameManager.splitRatio, rect.width * gameManager._splitRatio)
+                ? Random.Range(rect.width * settings.splitRatioFrom, rect.width * settings.splitRatioTo)
                 : rect.width;
             var height1 = splitByHorizontal
-                ? Random.Range(rect.height * gameManager.splitRatio, rect.height * gameManager._splitRatio)
+                ? Random.Range(rect.height * settings.splitRatioFrom, rect.height * settings.splitRatioTo)
                 : rect.height;
 
             // ReSharper disable TailRecursiveCall

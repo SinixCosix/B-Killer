@@ -6,38 +6,35 @@ using Random = UnityEngine.Random;
 
 namespace Mechanics.MapGeneration
 {
-    public class LawnGenerator : IGenerator
+    public static class LawnsGenerator
     {
-        public List<Rect> Lawns { get; private set; }
-        public HashSet<Vector2Int> PointsOfLawns { get; }
-
-        public LawnGenerator()
+        public static void Generate()
         {
-            PointsOfLawns = new HashSet<Vector2Int>();
+            var lawns = BinarySpacePartitionTree.Split().ToList();
+            ReshapeRects(lawns);
+            GeneratePoints(lawns);
+
+            MapGenerator.Instance.Lawns = lawns;
         }
 
-        public void Generate()
+        private static void ReshapeRects(IList<Rect> lawns)
         {
-            Lawns = BinarySpacePartitionTree.Split().ToList();
-
-            for (var i = 0; i < Lawns.Count; i++)
+            for (var i = 0; i < lawns.Count; i++)
             {
-                var room = Lawns[i];
+                var room = lawns[i];
                 room = ReshapeRect(room);
-                Lawns[i] = room;
+                lawns[i] = room;
             }
-
-            Generate(Lawns);
         }
 
         private static Rect ReshapeRect(Rect rect)
         {
-            var gameManager = GameManager.Instance;
+            var gameManager = Settings.Instance;
             var minLength = Math.Min(rect.width, rect.height);
-            var width = Random.Range(minLength * gameManager.splitRatio, rect.width);
+            var width = Random.Range(minLength * gameManager.splitRatioFrom, rect.width);
             if (width < gameManager.minRoomSize)
                 width = gameManager.minRoomSize;
-            var height = Random.Range(minLength * gameManager.splitRatio, rect.height);
+            var height = Random.Range(minLength * gameManager.splitRatioFrom, rect.height);
             if (height < gameManager.minRoomSize)
                 height = gameManager.minRoomSize;
             var x = Random.Range(rect.x, rect.xMax - width);
@@ -46,15 +43,16 @@ namespace Mechanics.MapGeneration
             return new Rect(x, y, width, height);
         }
 
-        private void Generate(IEnumerable<Rect> rooms)
+        private static void GeneratePoints(IEnumerable<Rect> rooms)
         {
+            var pointsOfLawns = MapGenerator.Instance.PointsOfLawns;
             foreach (var room in rooms)
             {
                 for (var i = room.x; i < room.xMax; ++i)
                 for (var j = room.y; j < room.yMax; ++j)
                 {
                     var position = new Vector2Int((int) i, (int) j);
-                    PointsOfLawns.Add(position);
+                    pointsOfLawns.Add(position);
                 }
             }
         }

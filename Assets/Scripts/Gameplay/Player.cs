@@ -4,8 +4,7 @@ namespace Gameplay
 {
     public class Player : Entity
     {
-        public static Player Singleton;
-        public Vector3 movementDirection;
+        public static Player Instance;
         public Weapon.Weapon weapon;
         public Camera mainCamera;
 
@@ -20,7 +19,7 @@ namespace Gameplay
 
         private void Awake()
         {
-            Singleton = this;
+            Instance = this;
         }
 
         public void CalculateMouseAngle()

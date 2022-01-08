@@ -6,46 +6,26 @@ namespace Mechanics
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameManager Instance;
         public MapGenerator generator;
         public PlayerController player;
-        public float time = 2;
-        public bool infinityGeneration;
-        public uint mapSize = 100;
-        public uint splitCount = 4;
-
-        public float splitRatio = 0.25f;
-        public float _splitRatio;
-
-        public uint minRoomSize = 6;
-
+        
         private float _time;
-
-        public GameManager()
-        {
-            Instance = this;
-        }
-
-        private void Awake()
-        {
-            _splitRatio = 1 - splitRatio;
-        }
 
         private void Start()
         {
-            _time = time;
+            _time = Settings.Instance.time;
             generator.Generate();
             SpawnPlayer();
         }
 
         private void Update()
         {
-            if (!infinityGeneration)
+            if (!Settings.Instance.infinityGeneration)
                 return;
 
             if (_time < 0)
             {
-                _time = time;
+                _time = Settings.Instance.time;
 
                 generator.Generate();
                 SpawnPlayer();
@@ -57,7 +37,7 @@ namespace Mechanics
         private void SpawnPlayer()
         {
             Debug.Log(player);
-            player.SpawnPoint = generator.StartPoint;
+            player.SpawnPoint = generator.SelectStartPoint();
             player.Respawn();
         }
     }

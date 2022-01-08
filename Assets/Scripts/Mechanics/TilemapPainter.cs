@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 namespace Mechanics
 {
-    public class TilemapVisualizer : MonoBehaviour
+    public class TilemapPainter : MonoBehaviour
     {
         public Tilemap floorTilemap;
         public Tilemap forestTilemap;

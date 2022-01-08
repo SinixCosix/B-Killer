@@ -1,0 +1,48 @@
+﻿using UnityEngine;
+
+namespace Mechanics.MapGeneration
+{
+    public static class PathsGenerator 
+    {
+        public static void Generate()
+        {
+            var lawns = MapGenerator.Instance.Lawns;
+            var paths = MapGenerator.Instance.Paths;
+            
+            for (var i = 0; i < lawns.Count - 1; ++i)
+            {
+                var room = lawns[i].center;
+                var nextRoom = lawns[i + 1].center;
+                var position = room;
+
+                while ((int) position.x != (int) nextRoom.x)
+                {
+                    if (nextRoom.x > position.x)
+                        position += Vector2.right;
+                    else if (nextRoom.x < position.x)
+                        position += Vector2.left;
+
+                    for (var j = 0; j < 2; ++j)
+                    {
+                        var y = (int) position.y + j;
+                        paths.Add(new Vector2Int((int) position.x, y));
+                    }
+                }
+
+                while ((int) position.y != (int) nextRoom.y)
+                {
+                    if (nextRoom.y > position.y)
+                        position += Vector2.up;
+                    else if (nextRoom.y < position.y)
+                        position += Vector2.down;
+
+                    for (var j = 0; j < 2; ++j)
+                    {
+                        var x = (int) position.x + j;
+                        paths.Add(new Vector2Int(x, (int) position.y));
+                    }
+                }
+            }
+        }
+    }
+}

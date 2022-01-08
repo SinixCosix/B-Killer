@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 982156610}
   - component: {fileID: 982156611}
   - component: {fileID: 982156612}
+  - component: {fileID: 982156613}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -172,8 +173,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generator: {fileID: 982156610}
   player: {fileID: 1577901858}
-  time: 2
-  infinityGeneration: 0
 --- !u!4 &982156609
 Transform:
   m_ObjectHideFlags: 0
@@ -200,12 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f096348868164edd9e05e05ec9171e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: 100
-  splitCount: 4
-  splitRatio: 0.25
-  minRoomSize: 6
   mobSpawner: {fileID: 982156612}
-  tilemap: {fileID: 982156611}
+  painter: {fileID: 982156611}
 --- !u!114 &982156611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +240,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2001179727236752188, guid: 21ce7d0e8d98943419f491d6b22601cb, type: 3}
   player: {fileID: 0}
+--- !u!114 &982156613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982156607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa164b72a52498ab3e0ea40f9f037c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 2
+  infinityGeneration: 0
+  mapSize: 100
+  splitCount: 4
+  splitRatioFrom: 0.25
+  splitRatioTo: 0
+  minRoomSize: 6
 --- !u!114 &1577901858 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5587184780340939216, guid: be0d6047c5c50b44482f3c27809bfa45, type: 3}

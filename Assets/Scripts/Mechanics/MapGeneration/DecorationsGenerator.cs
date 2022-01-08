@@ -4,17 +4,19 @@ using UnityEngine;
 
 namespace Mechanics.MapGeneration
 {
-    public class DecorationGenerator : IGenerator
+    public static class DecorationsGenerator 
     {
-        public void Generate()
+        public static void Generate()
         {
             GenerateForLawns();
             GenerateForPaths();
         }
-        
+
         private static void GenerateForLawns()
         {
             var lawns = MapGenerator.Instance.Lawns;
+            var decorations = MapGenerator.Instance.Decorations;
+            
             foreach (var rect in lawns)
             {
                 var minDecorationsCount = rect.width;
@@ -24,21 +26,23 @@ namespace Mechanics.MapGeneration
                 {
                     var x = Random.Range((int) rect.x, (int) rect.xMax);
                     var y = Random.Range((int) rect.y, (int) rect.yMax);
-                    MapGenerator.Instance.Decorations.Add(new Vector2Int(x, y));
+                    decorations.Add(new Vector2Int(x, y));
                 }
             }
         }
 
         private static void GenerateForPaths()
         {
-            var minDecorationsCount =  MapGenerator.Instance.Paths.Count / 6;
-            var maxDecorationsCount =  MapGenerator.Instance.Paths.Count / 5;
+            var decorations = MapGenerator.Instance.Decorations;
+
+            var minDecorationsCount = MapGenerator.Instance.Paths.Count / 6;
+            var maxDecorationsCount = MapGenerator.Instance.Paths.Count / 5;
             var decorationsCount = Random.Range(minDecorationsCount, maxDecorationsCount);
             for (var i = 0; i < decorationsCount; ++i)
             {
-                var index = Random.Range(0,  MapGenerator.Instance.Paths.Count);
+                var index = Random.Range(0, MapGenerator.Instance.Paths.Count);
                 var point = MapGenerator.Instance.Paths.ElementAt(index);
-                MapGenerator.Instance.Decorations.Add(point);
+                decorations.Add(point);
             }
         }
     }
