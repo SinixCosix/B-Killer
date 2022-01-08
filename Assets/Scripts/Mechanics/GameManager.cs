@@ -6,16 +6,16 @@ namespace Mechanics
 {
     public class GameManager : MonoBehaviour
     {
+        public MobSpawner mobSpawner;
         public MapGenerator generator;
         public PlayerController player;
-        
+
         private float _time;
 
         private void Start()
         {
             _time = Settings.Instance.time;
-            generator.Generate();
-            SpawnPlayer();
+            CreateMap();
         }
 
         private void Update()
@@ -26,18 +26,23 @@ namespace Mechanics
             if (_time < 0)
             {
                 _time = Settings.Instance.time;
-
-                generator.Generate();
-                SpawnPlayer();
+                CreateMap();
             }
             else
                 _time -= Time.deltaTime;
         }
 
+        private void CreateMap()
+        {
+            generator.Generate();
+            SpawnPlayer();
+            mobSpawner.Spawn(generator.Lawns);
+        }
+
         private void SpawnPlayer()
         {
             Debug.Log(player);
-            player.SpawnPoint = generator.SelectStartPoint();
+            generator.SelectStartPoint();
             player.Respawn();
         }
     }

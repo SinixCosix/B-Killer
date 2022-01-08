@@ -8,10 +8,8 @@ namespace Mechanics.MapGeneration
     public class MapGenerator : MonoBehaviour
     {
         public static MapGenerator Instance;
-        public MobSpawner mobSpawner;
 
         public Vector2 StartPoint { get; private set; }
-
         public TilemapPainter painter;
         [NonSerialized] public List<Rect> Lawns = new List<Rect>();
         public readonly HashSet<Vector2Int> PointsOfLawns = new HashSet<Vector2Int>();
@@ -34,8 +32,6 @@ namespace Mechanics.MapGeneration
             DecorationsGenerator.Generate();
             ForestGenerator.Generate();
 
-            mobSpawner.Spawn(Lawns);
-
             painter.PaintWalls();
             painter.PaintLawns(PointsOfLawns);
             painter.PaintPaths(Paths);
@@ -48,7 +44,6 @@ namespace Mechanics.MapGeneration
 
         private void Clear()
         {
-            mobSpawner.Clear();
             Lawns.Clear();
             Paths.Clear();
             Decorations.Clear();

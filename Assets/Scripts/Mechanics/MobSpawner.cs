@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Gameplay;
+using Mechanics.MapGeneration;
 using UnityEngine;
 
 namespace Mechanics
@@ -14,7 +15,10 @@ namespace Mechanics
         {
             foreach (var room in rooms)
             {
-                // var mobsCount = (int)room.width / 3;
+                if (room.center == MapGenerator.Instance.StartPoint)
+                    continue;
+
+                // TODO: var mobsCount = (int)room.width / 3;
                 var mob = Instantiate(enemyPrefab, room.center, Quaternion.identity);
                 _mobs.Add(mob);
             }

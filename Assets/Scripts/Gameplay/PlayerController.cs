@@ -1,4 +1,5 @@
 ﻿using System;
+using Mechanics.MapGeneration;
 using UnityEngine;
 
 namespace Gameplay
@@ -6,7 +7,6 @@ namespace Gameplay
     public class PlayerController : MonoBehaviour
     {
         public Player player;
-        [NonSerialized] public Vector2 SpawnPoint;
 
         private void Start()
         {
@@ -29,7 +29,7 @@ namespace Gameplay
 
         public void Respawn()
         {
-            player.transform.position = SpawnPoint;
+            player.transform.position = MapGenerator.Instance.StartPoint;
             player.health.Heal();
         }
     }
