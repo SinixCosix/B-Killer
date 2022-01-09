@@ -58,14 +58,13 @@ namespace Mechanics.MapGeneration
         private static HashSet<Vector2Int> GenerateEllipse(Rect rect)
         {
             var points = new HashSet<Vector2Int>();
-            const float increment = 0.5f;
-            for (var x = rect.x; x < rect.xMax; x += increment)
-            for (var y = rect.y; y < rect.yMax; y += increment)
+            for (var x = rect.x; x < rect.xMax; ++x)
+            for (var y = rect.y; y < rect.yMax; ++y)
             {
                 var result = CalculateEllipsePoint(
                     x, y,
                     rect.center.x, rect.center.y,
-                    rect.width/ 2, rect.height / 2);
+                    rect.width / 2, rect.height / 2);
 
                 if (result < 1)
                     points.Add(new Vector2Int((int) x, (int) y));
