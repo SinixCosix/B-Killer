@@ -3899,11 +3899,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2030479712217509640, guid: ec063129db248294faef52dda3362366,
         type: 3}
-      propertyPath: m_SortingLayerID
-      value: 2116099231
-      objectReference: {fileID: 0}
-    - target: {fileID: 2030479712217509640, guid: ec063129db248294faef52dda3362366,
-        type: 3}
       propertyPath: m_ChunkCullingBounds.x
       value: 0
       objectReference: {fileID: 0}
@@ -3916,11 +3911,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2030479712737066522, guid: ec063129db248294faef52dda3362366,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -888973317
       objectReference: {fileID: 0}
     - target: {fileID: 2030479712737066522, guid: ec063129db248294faef52dda3362366,
         type: 3}
@@ -14867,16 +14857,6 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 2030479712785935060, guid: ec063129db248294faef52dda3362366,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2030479712785935060, guid: ec063129db248294faef52dda3362366,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -746336179
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec063129db248294faef52dda3362366, type: 3}
 --- !u!1001 &6713610491499863807
@@ -14945,6 +14925,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704445759250306603, guid: be0d6047c5c50b44482f3c27809bfa45,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be0d6047c5c50b44482f3c27809bfa45, type: 3}

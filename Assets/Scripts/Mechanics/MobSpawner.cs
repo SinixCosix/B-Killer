@@ -18,9 +18,15 @@ namespace Mechanics
                 if (room.center == MapGenerator.Instance.StartPoint)
                     continue;
 
-                // TODO: var mobsCount = (int)room.width / 3;
-                var mob = Instantiate(enemyPrefab, room.center, Quaternion.identity);
-                _mobs.Add(mob);
+                var mobsCount = Mathf.Min(room.width, room.height);
+                mobsCount /= 3;
+                Debug.Log($"mobs count at room: {mobsCount}");
+                for (var i = 0f; i < mobsCount; ++i)
+                {
+                    var position = new Vector2(room.center.x + i, room.center.y);
+                    var mob = Instantiate(enemyPrefab, position, Quaternion.identity);
+                    _mobs.Add(mob);
+                }
             }
         }
 
