@@ -42,12 +42,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Water
+  - name: Ground
     uniqueID: 2116099231
     locked: 0
-  - name: Level
+  - name: Decorations
+    uniqueID: 3405993979
+    locked: 0
+  - name: Player
     uniqueID: 2344118779
     locked: 0
-  - name: Front
-    uniqueID: 3405993979
+  - name: Forest
+    uniqueID: 3548631117
     locked: 0
