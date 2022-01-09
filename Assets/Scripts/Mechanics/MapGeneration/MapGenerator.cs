@@ -11,8 +11,8 @@ namespace Mechanics.MapGeneration
 
         public Vector2 StartPoint { get; private set; }
         public TilemapPainter painter;
-        [NonSerialized] public List<Rect> Lawns = new List<Rect>();
-        public readonly HashSet<Vector2Int> PointsOfLawns = new HashSet<Vector2Int>();
+        [NonSerialized] public List<Rect> Rooms = new List<Rect>();
+        public readonly HashSet<Vector2Int> PointsOfPoints = new HashSet<Vector2Int>();
 
         public readonly HashSet<Vector2Int> Paths = new HashSet<Vector2Int>();
         public readonly HashSet<Vector2Int> Decorations = new HashSet<Vector2Int>();
@@ -25,25 +25,25 @@ namespace Mechanics.MapGeneration
 
         public void Generate()
         {
-            LawnsGenerator.Generate();
+            RoomsGenerator.Generate();
             PathsGenerator.Generate();
             DecorationsGenerator.Generate();
             ForestGenerator.Generate();
 
             painter.PaintWalls();
-            painter.PaintLawns(PointsOfLawns);
+            painter.PaintRooms(PointsOfPoints);
             painter.PaintPaths(Paths);
             painter.PaintForest(Forest);
             painter.PaintDecorations(Decorations, Paths);
 
-            painter.Cut(PointsOfLawns);
+            painter.Cut(PointsOfPoints);
             painter.Cut(Paths);
         }
 
         public void Clear()
         {
-            Lawns.Clear();
-            PointsOfLawns.Clear();
+            Rooms.Clear();
+            PointsOfPoints.Clear();
             Paths.Clear();
             Decorations.Clear();
             Forest.Clear();
@@ -54,8 +54,8 @@ namespace Mechanics.MapGeneration
 
         public void SelectStartPoint()
         {
-            var index = Random.Range(0, Lawns.Count);
-            StartPoint = Lawns[index].center;
+            var index = Random.Range(0, Rooms.Count);
+            StartPoint = Rooms[index].center;
         }
     }
 }

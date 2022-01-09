@@ -70,11 +70,11 @@ namespace Mechanics
             PaintTiles(cutSpace, obstaclesTilemap, null);
             PaintTiles(cutSpace, forestTilemap, null);
         }
-        
-        public void PaintLawns(IEnumerable<Vector2Int> points)
+
+        public void PaintRooms(IEnumerable<Vector2Int> points)
         {
             foreach (var position in points)
-                    PaintTile(position, floorTilemap, lawnTile);
+                PaintTile(position, floorTilemap, lawnTile);
         }
 
         public void PaintPaths(IEnumerable<Vector2Int> pathPositions)

@@ -6,24 +6,24 @@ using Random = UnityEngine.Random;
 
 namespace Mechanics.MapGeneration
 {
-    public static class LawnsGenerator
+    public static class RoomsGenerator
     {
         public static void Generate()
         {
-            var lawns = BinarySpacePartitionTree.Split().ToList();
-            ReshapeRects(lawns);
-            GeneratePoints(lawns);
+            var rooms = BinarySpacePartitionTree.Split().ToList();
+            ReshapeRects(rooms);
+            GeneratePoints(rooms);
 
-            MapGenerator.Instance.Lawns = lawns;
+            MapGenerator.Instance.Rooms = rooms;
         }
 
-        private static void ReshapeRects(IList<Rect> lawns)
+        private static void ReshapeRects(IList<Rect> rooms)
         {
-            for (var i = 0; i < lawns.Count; i++)
+            for (var i = 0; i < rooms.Count; i++)
             {
-                var room = lawns[i];
+                var room = rooms[i];
                 room = ReshapeRect(room);
-                lawns[i] = room;
+                rooms[i] = room;
             }
         }
 
@@ -45,13 +45,13 @@ namespace Mechanics.MapGeneration
 
         private static void GeneratePoints(IEnumerable<Rect> rooms)
         {
-            var pointsOfLawns = MapGenerator.Instance.PointsOfLawns;
+            var pointsOfRooms = MapGenerator.Instance.PointsOfPoints;
             foreach (var rect in rooms)
             {
                 var ellipsePoints = GenerateEllipse(rect);
 
                 foreach (var point in ellipsePoints)
-                    pointsOfLawns.Add(point);
+                    pointsOfRooms.Add(point);
             }
         }
 

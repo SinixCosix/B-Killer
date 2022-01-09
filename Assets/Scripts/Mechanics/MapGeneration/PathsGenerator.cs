@@ -6,13 +6,13 @@ namespace Mechanics.MapGeneration
     {
         public static void Generate()
         {
-            var lawns = MapGenerator.Instance.Lawns;
+            var rooms = MapGenerator.Instance.Rooms;
             var paths = MapGenerator.Instance.Paths;
             
-            for (var i = 0; i < lawns.Count - 1; ++i)
+            for (var i = 0; i < rooms.Count - 1; ++i)
             {
-                var room = lawns[i].center;
-                var nextRoom = lawns[i + 1].center;
+                var room = rooms[i].center;
+                var nextRoom = rooms[i + 1].center;
                 var position = room;
 
                 while ((int) position.x != (int) nextRoom.x)

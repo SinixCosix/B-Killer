@@ -38,7 +38,7 @@ namespace Mechanics
             
             generator.Generate();
             SpawnPlayer();
-            mobSpawner.Spawn(generator.Lawns);
+            mobSpawner.Spawn(generator.Rooms);
         }
 
         private void Clear()

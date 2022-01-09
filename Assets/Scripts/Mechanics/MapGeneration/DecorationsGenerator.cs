@@ -8,13 +8,13 @@ namespace Mechanics.MapGeneration
     {
         public static void Generate()
         {
-            GenerateForLawns();
+            GenerateForRooms();
             GenerateForPaths();
         }
 
-        private static void GenerateForLawns()
+        private static void GenerateForRooms()
         {
-            var lawns = MapGenerator.Instance.Lawns;
+            var lawns = MapGenerator.Instance.Rooms;
             var decorations = MapGenerator.Instance.Decorations;
             
             foreach (var rect in lawns)
