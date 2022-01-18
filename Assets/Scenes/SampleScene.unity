@@ -135,6 +135,92 @@ Tilemap:
     type: 3}
   m_PrefabInstance: {fileID: 2030479712483438288}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &728627930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 728627932}
+  - component: {fileID: 728627931}
+  m_Layer: 0
+  m_Name: AStar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &728627931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728627930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAAAgIexpFr/OawIAACMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVMFy2jAQ/RVG58KYADH01jqE9JCECe3k4ossrbEGWfJIcoBk+PeuZBu79IR4+3b37dPKX0QoWwFz2myM4M+aA/k+Iv5Mvo364BOc6F6rnfiEjvMuuCs8iQbOG3VCIz71aVaX4IxgP9ReenKEYK1Erk255ntItHUW4ZxKCxgy2vlshdDXiJzwZ7zyKWc83cX+9ImnVTS64JGBcmB66qJjLjpiw6sVk7SsgHvRPX0adXw8BaLCgVqOF8+0lMK2aog7V2HahFa2xlmQwAXF6YKE6WSGQAFiXzivdZj+mucWXDu8oecHYdCmpi75qRvvSmoPjbYPKmvfaRk0NSWf/4uOpyGcG10+dV2biVwh2OGNnhm1bmDtEH4YCA8GHak80EzCewHqRW+MrhXHoDO1T60t3D30f6+DJQWwQ483Um/Auuodv/o9iZfL6WwVx+txFLd35Qe6BCNOiRRl5vmTeQPspA7mh10Ag9f0C9WHTbFtXUS9pD8WftP9cKXawKMw1mGoHVl5rZmujaeSdTDQj1a7RBsFAW4nqEBR6c5bLONub/MmNmh7E3mk/vG0zdtY9yZuUgLc86PoJrTVx+vN2UIfn8EWr7WTQkEv2gde0KdEK9Us29CTLm1Xm5yyQdq+FvzfPSNxfD+LVos53Gc8m8dsnGV0tuTApys2v8vpnIRFFArnpHLbCG3twVtTfXGFS9d9U0YbQ6uw+NzQ40Z8lnpguVC53jEDoF6bClfhYLAJPlG+5gIN2oFzQoX7Jl8pkZodgKfXQmmYdH1yhqZ9lZRU4kM7j6QkCR+RlHj4uthbAx8Cjr55V+xCLn8BUEsDBBQAAAgIAAAgIewObJ4NbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSubmZsYGlqUmqWVJKkol5sm5SUqKxRUpqiqFlsolRWqKJUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAAAgIexpFr/OawIAACMFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAgIewObJ4NbQAAAHgAAAAJACQAAAAAAAAAAAAAALgCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAcAMAAAAA
+    upgradeData: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 1
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 1
+  maxFrameTime: 10
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
+--- !u!4 &728627932
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728627930}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &812302807 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 2030479712217509639, guid: ec063129db248294faef52dda3362366,
@@ -287,6 +373,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2030479711134841341, guid: ec063129db248294faef52dda3362366,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2030479712155314063, guid: ec063129db248294faef52dda3362366,
         type: 3}
       propertyPath: m_Name

@@ -1,18 +1,16 @@
-﻿namespace Gameplay.Enemy
+﻿using Pathfinding;
+
+namespace Gameplay.Enemy
 {
     public class EnemyStalker : AbstractEnemy
     {
+        // public AIDestinationSetter Setter;
+        
         private void Update()
         {
-            StalkPlayer();
-        }
-
-        private void StalkPlayer()
-        {
-            TargetPosition = Player.transform.position;
-
-            if (IsNextToPlayer())
-                Move();
+               
+            var destinationSetter = gameObject.GetComponent<AIDestinationSetter>();
+            destinationSetter.target = Player.transform;
         }
     }
 }

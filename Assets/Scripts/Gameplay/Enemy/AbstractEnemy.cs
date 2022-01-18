@@ -1,5 +1,6 @@
 using System;
 using Mechanics;
+
 using UnityEngine;
 
 namespace Gameplay.Enemy
@@ -14,6 +15,7 @@ namespace Gameplay.Enemy
         {
             Player = Player.Instance;
             health.Death += Death;
+            
         }
 
         private void Death()
