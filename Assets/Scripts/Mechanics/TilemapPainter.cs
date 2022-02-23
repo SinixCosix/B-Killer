@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Mechanics.MapGeneration;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -65,16 +66,23 @@ namespace Mechanics
             }
         }
 
+        public void Cut(IEnumerable<Room> rooms)
+        {
+            foreach (var room in rooms)
+                Cut(room.Points);
+        }
+
         public void Cut(IEnumerable<Vector2Int> cutSpace)
         {
             PaintTiles(cutSpace, obstaclesTilemap, null);
             PaintTiles(cutSpace, forestTilemap, null);
         }
-
-        public void PaintRooms(IEnumerable<Vector2Int> points)
+        
+        public void PaintRooms(IEnumerable<Room> rooms)
         {
-            foreach (var position in points)
-                PaintTile(position, floorTilemap, lawnTile);
+            foreach (var room in rooms)
+            foreach (var point in room.Points)
+                PaintTile(point, floorTilemap, lawnTile);
         }
 
         public void PaintPaths(IEnumerable<Vector2Int> pathPositions)

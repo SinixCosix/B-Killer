@@ -11,8 +11,8 @@ namespace Mechanics.MapGeneration
             
             for (var i = 0; i < rooms.Count - 1; ++i)
             {
-                var room = rooms[i].center;
-                var nextRoom = rooms[i + 1].center;
+                var room = rooms[i].Rect.center;
+                var nextRoom = rooms[i + 1].Rect.center;
                 var position = room;
 
                 while ((int) position.x != (int) nextRoom.x)

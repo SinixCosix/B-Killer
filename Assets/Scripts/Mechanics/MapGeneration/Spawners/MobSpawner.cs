@@ -11,19 +11,18 @@ namespace Mechanics
 
         private readonly List<GameObject> _mobs = new List<GameObject>();
 
-        public void Spawn(List<Rect> rooms)
+        public void Spawn(List<Room> rooms)
         {
             foreach (var room in rooms)
             {
-                if (room.center == MapGenerator.Instance.StartPoint)
+                if (room.Rect.center == MapGenerator.Instance.StartPoint)
                     continue;
 
-                var mobsCount = Mathf.Min(room.width, room.height);
-                mobsCount /= 3;
-                Debug.Log($"mobs count at room: {mobsCount}");
+                var mobsCount = room.MinLength / 3;
                 for (var i = 0f; i < mobsCount; ++i)
                 {
-                    var position = new Vector2(room.center.x + i, room.center.y);
+                    var position = new Vector2(room.Rect.center.x + i,
+                                                 room.Rect.center.y);
                     var mob = Instantiate(enemyPrefab, position, Quaternion.identity);
                     _mobs.Add(mob);
                 }

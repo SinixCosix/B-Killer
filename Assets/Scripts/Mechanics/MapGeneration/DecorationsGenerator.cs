@@ -14,11 +14,12 @@ namespace Mechanics.MapGeneration
 
         private static void GenerateForRooms()
         {
-            var lawns = MapGenerator.Instance.Rooms;
+            var rooms = MapGenerator.Instance.Rooms;
             var decorations = MapGenerator.Instance.Decorations;
             
-            foreach (var rect in lawns)
+            foreach (var room in rooms)
             {
+                var rect = room.Rect;
                 var minDecorationsCount = rect.width;
                 var maxDecorationsCount = rect.width + rect.height;
                 var decorationsCount = Random.Range(minDecorationsCount, maxDecorationsCount);
