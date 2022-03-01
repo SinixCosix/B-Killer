@@ -14,7 +14,7 @@ namespace Mechanics.MapGeneration
                 => CreateRoom(rect, (uint)i))
                 .ToList();
 
-            MapGenerator.Instance.Rooms = rooms;
+            GameManager.Instance.Rooms = rooms;
         }
 
         private Room CreateRoom(Rect rect, uint id)

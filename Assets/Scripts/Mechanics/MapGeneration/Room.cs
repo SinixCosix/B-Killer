@@ -8,11 +8,15 @@ namespace Mechanics.MapGeneration
     public class Room : MonoBehaviour
     {
         public uint Id { get; private set; }
-        public Rect Rect { get; private set;}
+        public Rect Rect { get; private set; }
         public float MinLength { get; private set; }
         public HashSet<Vector2Int> Points { get; private set; }
 
         private Rect BaseRect { get; set; }
+
+        public delegate void MethodContainer(Room room);
+
+        public event MethodContainer PlayerTriggered;
 
 
         public void Init(Rect baseRect, uint id)
@@ -27,11 +31,13 @@ namespace Mechanics.MapGeneration
         private void InitBorder()
         {
             var roomBorder = gameObject.GetComponent<RoomBorder>();
+            roomBorder.PlayerTriggered += () =>
+                PlayerTriggered?.Invoke(this);
+
             var transform1 = roomBorder.transform;
             transform1.position = Rect.center;
             transform1.localScale = new Vector3(Rect.width, Rect.height);
         }
-
 
         private void Reshape()
         {
@@ -47,14 +53,13 @@ namespace Mechanics.MapGeneration
 
             Rect = new Rect(x, y, width, height);
             MinLength = Math.Min(Rect.width, Rect.height);
-
         }
 
         private void CreatePoints()
         {
             Points = GenerateEllipse(Rect);
         }
-        
+
         private static HashSet<Vector2Int> GenerateEllipse(Rect rect)
         {
             var points = new HashSet<Vector2Int>();
@@ -72,7 +77,7 @@ namespace Mechanics.MapGeneration
 
             return points;
         }
-        
+
         private static float CalculateEllipsePoint(
             float x, float y,
             float x0, float y0,

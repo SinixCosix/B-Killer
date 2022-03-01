@@ -14,7 +14,7 @@ namespace Mechanics.MapGeneration
 
         private static void GenerateForRooms()
         {
-            var rooms = MapGenerator.Instance.Rooms;
+            var rooms = GameManager.Instance.Rooms;
             var decorations = MapGenerator.Instance.Decorations;
             
             foreach (var room in rooms)

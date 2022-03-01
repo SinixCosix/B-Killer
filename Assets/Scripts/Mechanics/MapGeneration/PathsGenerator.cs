@@ -6,7 +6,7 @@ namespace Mechanics.MapGeneration
     {
         public static void Generate()
         {
-            var rooms = MapGenerator.Instance.Rooms;
+            var rooms = GameManager.Instance.Rooms;
             var paths = MapGenerator.Instance.Paths;
             
             for (var i = 0; i < rooms.Count - 1; ++i)

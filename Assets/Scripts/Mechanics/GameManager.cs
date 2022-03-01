@@ -1,4 +1,6 @@
-﻿using Gameplay;
+﻿using System;
+using System.Collections.Generic;
+using Gameplay;
 using Mechanics.MapGeneration;
 using UnityEngine;
 
@@ -6,11 +8,18 @@ namespace Mechanics
 {
     public class GameManager : MonoBehaviour
     {
+        public static GameManager Instance;
+        
         public MobSpawner mobSpawner;
         public MapGenerator generator;
         public PlayerController player;
+        
+        public List<Room> Rooms { get; set; }
 
         private float _time;
+        
+        public GameManager()
+            => Instance = this;
 
         private void Start()
         {
@@ -37,20 +46,29 @@ namespace Mechanics
             Clear();
             
             generator.Generate();
+            SubscribeRooms();
             SpawnPlayer();
-            mobSpawner.Spawn(generator.Rooms);
+            // mobSpawner.Spawn(Rooms);
+        }
+
+        private void SubscribeRooms()
+        {
+            foreach (var room in Rooms)
+            {
+                room.PlayerTriggered += mobSpawner.Spawn;
+            }
         }
 
         private void Clear()
         {
             generator.Clear();
             mobSpawner.Clear();
+            Rooms?.Clear();
         }
 
         private void SpawnPlayer()
         {
             Debug.Log(player);
-            generator.SelectStartPoint();
             player.Respawn();
         }
     }

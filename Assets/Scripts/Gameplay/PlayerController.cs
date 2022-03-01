@@ -1,4 +1,5 @@
 ﻿using System;
+using Mechanics;
 using Mechanics.MapGeneration;
 using UnityEngine;
 
@@ -29,7 +30,8 @@ namespace Gameplay
 
         public void Respawn()
         {
-            player.transform.position = MapGenerator.Instance.StartPoint;
+            var room = GameManager.Instance.Rooms[0];
+            player.transform.position = room.transform.position;
             player.health.Heal();
         }
     }

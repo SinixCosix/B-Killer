@@ -11,9 +11,7 @@ namespace Mechanics.MapGeneration
         public static MapGenerator Instance;
 
         public RoomsGenerator roomsGenerator;
-        public Vector2 StartPoint { get; private set; }
         public TilemapPainter painter;
-        [NonSerialized] public List<Room> Rooms = new List<Room>();
 
         public readonly HashSet<Vector2Int> Paths = new HashSet<Vector2Int>();
         public readonly HashSet<Vector2Int> Decorations = new HashSet<Vector2Int>();
@@ -27,35 +25,30 @@ namespace Mechanics.MapGeneration
         public void Generate()
         {
             roomsGenerator.Generate();
+            var rooms = GameManager.Instance.Rooms;
+            
             PathsGenerator.Generate();
             DecorationsGenerator.Generate();
             ForestGenerator.Generate();
 
             painter.PaintWalls();
-            painter.PaintRooms(Rooms);
+            painter.PaintRooms(rooms);
             painter.PaintPaths(Paths);
             painter.PaintForest(Forest);
             painter.PaintDecorations(Decorations, Paths);
 
-            painter.Cut(Rooms);
+            painter.Cut(rooms);
             painter.Cut(Paths);
         }
 
         public void Clear()
         {
-            Rooms.Clear();
             Paths.Clear();
             Decorations.Clear();
             Forest.Clear();
             
             painter.Clear();
             
-        }
-
-        public void SelectStartPoint()
-        {
-            var index = Random.Range(0, Rooms.Count);
-            StartPoint = Rooms[index].Rect.center;
         }
     }
 }
