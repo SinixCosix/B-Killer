@@ -10,6 +10,7 @@ namespace Mechanics.MapGeneration
     {
         public static MapGenerator Instance;
 
+        public RoomsGenerator roomsGenerator;
         public Vector2 StartPoint { get; private set; }
         public TilemapPainter painter;
         [NonSerialized] public List<Room> Rooms = new List<Room>();
@@ -25,7 +26,7 @@ namespace Mechanics.MapGeneration
 
         public void Generate()
         {
-            RoomsGenerator.Generate();
+            roomsGenerator.Generate();
             PathsGenerator.Generate();
             DecorationsGenerator.Generate();
             ForestGenerator.Generate();

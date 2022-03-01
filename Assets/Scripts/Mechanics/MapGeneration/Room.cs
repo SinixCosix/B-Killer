@@ -5,21 +5,33 @@ using Random = UnityEngine.Random;
 
 namespace Mechanics.MapGeneration
 {
-    public class Room
+    public class Room : MonoBehaviour
     {
-        public uint Id { get; }
+        public uint Id { get; private set; }
         public Rect Rect { get; private set;}
-        private Rect BaseRect { get; }
         public float MinLength { get; private set; }
         public HashSet<Vector2Int> Points { get; private set; }
 
-        public Room(Rect baseRect, uint id)
+        private Rect BaseRect { get; set; }
+
+
+        public void Init(Rect baseRect, uint id)
         {
             BaseRect = baseRect;
             Id = id;
             Reshape();
             CreatePoints();
+            InitBorder();
         }
+
+        private void InitBorder()
+        {
+            var roomBorder = gameObject.GetComponent<RoomBorder>();
+            var transform1 = roomBorder.transform;
+            transform1.position = Rect.center;
+            transform1.localScale = new Vector3(Rect.width, Rect.height);
+        }
+
 
         private void Reshape()
         {

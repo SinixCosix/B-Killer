@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Mechanics.MapGeneration
 {
-    public static class RoomsGenerator
+    public class RoomsGenerator : MonoBehaviour
     {
-        public static void Generate()
+        public GameObject roomPrefab;
+        
+        public void Generate()
         {
             var rects = BinarySpacePartitionTree.Split().ToList();
             var rooms = rects.Select((rect, i) 
@@ -18,9 +17,11 @@ namespace Mechanics.MapGeneration
             MapGenerator.Instance.Rooms = rooms;
         }
 
-        private static Room CreateRoom(Rect rect, uint id)
+        private Room CreateRoom(Rect rect, uint id)
         {
-            var room = new Room(rect, id);
+            var roomGameObject = Instantiate(roomPrefab, gameObject.transform);
+            var room = roomGameObject.GetComponent<Room>();
+            room.Init(rect, id);
             return room;
         }
     }
