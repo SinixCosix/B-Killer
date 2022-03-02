@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay;
+using Gameplay.Enemy;
 using Mechanics.MapGeneration;
 using Mechanics.Rooms;
 using Mechanics.Spawners;
@@ -70,6 +71,7 @@ namespace Mechanics
             {
                 room.PlayerTriggered += _mobSpawner.Spawn;
                 room.PlayerTriggered += _wallSpawner.Spawn;
+                room.PlayerTriggered += AiManager.Recalculate;
                 room.MobsAreKilled += _wallSpawner.Despawn;
             }
         }

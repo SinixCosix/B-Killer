@@ -14,8 +14,7 @@ namespace Mechanics.Spawners
         public void Spawn(Room room)
         {
             if (room.Id == 0) return;
-
-
+            
             for (var i = 0; i < room.MobsCount; i++)
             {
                 var position = new Vector2(room.Rect.center.x + i,

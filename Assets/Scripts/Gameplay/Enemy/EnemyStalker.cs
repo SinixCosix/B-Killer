@@ -1,14 +1,12 @@
-﻿using Pathfinding;
+﻿using System;
+using Pathfinding;
 
 namespace Gameplay.Enemy
 {
     public class EnemyStalker : AbstractEnemy
     {
-        // public AIDestinationSetter Setter;
-        
-        private void Update()
+        private void Start()
         {
-               
             var destinationSetter = gameObject.GetComponent<AIDestinationSetter>();
             destinationSetter.target = Player.transform;
         }
