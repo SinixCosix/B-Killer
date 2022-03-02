@@ -19,8 +19,8 @@ namespace Mechanics
         public TileBase pathTile;
         public TileBase lawnTile;
         public TileBase treeTile;
-        public TileBase stoneTile;
-        public TileBase grassTile;
+        public TileBase[] stoneTile;
+        public TileBase[] grassTile;
         public TileBase bushTile;
         public TileBase wallTile;
 
@@ -40,12 +40,19 @@ namespace Mechanics
         {
             foreach (var point in points)
             {
-                var tile = Random.Range(0f, 1f) > 0.5 ? stoneTile : grassTile;
-                if (paths.Contains(point) && tile == grassTile)
-                    continue;
+                var tile = Random.Range(0f, 1f) < 0.2f 
+                    ? GetRandomTile(stoneTile) 
+                    : GetRandomTile(grassTile);
 
                 PaintTile(point, decorationsTilemap, tile);
             }
+        }
+
+        private static TileBase GetRandomTile(TileBase[] tiles)
+        {
+            var index = Random.Range(0, tiles.Length);
+            var tile = tiles[index];
+            return tile;
         }
 
         public void PaintMapWalls()
