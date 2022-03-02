@@ -11,7 +11,6 @@ namespace Mechanics.MapGeneration
         public static MapGenerator Instance;
 
         public RoomsGenerator roomsGenerator;
-        public TilemapPainter painter;
 
         public readonly HashSet<Vector2Int> Paths = new HashSet<Vector2Int>();
         public readonly HashSet<Vector2Int> Decorations = new HashSet<Vector2Int>();
@@ -25,13 +24,18 @@ namespace Mechanics.MapGeneration
         public void Generate()
         {
             roomsGenerator.Generate();
-            var rooms = GameManager.Instance.Rooms;
             
             PathsGenerator.Generate();
             DecorationsGenerator.Generate();
             ForestGenerator.Generate();
+        }
 
-            painter.PaintWalls();
+        public void Paint()
+        {
+            var rooms = GameManager.Instance.Rooms;
+            var painter = GameManager.Instance.painter;
+            
+            painter.PaintMapWalls();
             painter.PaintRooms(rooms);
             painter.PaintPaths(Paths);
             painter.PaintForest(Forest);
@@ -46,9 +50,6 @@ namespace Mechanics.MapGeneration
             Paths.Clear();
             Decorations.Clear();
             Forest.Clear();
-            
-            painter.Clear();
-            
         }
     }
 }

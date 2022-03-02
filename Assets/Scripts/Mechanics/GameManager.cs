@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gameplay;
 using Mechanics.MapGeneration;
+using Mechanics.Spawners;
 using UnityEngine;
 
 namespace Mechanics
@@ -13,6 +14,8 @@ namespace Mechanics
         public MobSpawner mobSpawner;
         public MapGenerator generator;
         public PlayerController player;
+        public RoomWallSpawner wallSpawner;
+        public TilemapPainter painter;
         
         public List<Room> Rooms { get; set; }
 
@@ -48,7 +51,8 @@ namespace Mechanics
             generator.Generate();
             SubscribeRooms();
             SpawnPlayer();
-            // mobSpawner.Spawn(Rooms);
+            
+            generator.Paint();
         }
 
         private void SubscribeRooms()
@@ -56,6 +60,7 @@ namespace Mechanics
             foreach (var room in Rooms)
             {
                 room.PlayerTriggered += mobSpawner.Spawn;
+                room.PlayerTriggered += wallSpawner.Spawn;
             }
         }
 
@@ -64,6 +69,7 @@ namespace Mechanics
             generator.Clear();
             mobSpawner.Clear();
             Rooms?.Clear();
+            painter.Clear();
         }
 
         private void SpawnPlayer()

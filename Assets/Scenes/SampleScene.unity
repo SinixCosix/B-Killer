@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 982156610}
   - component: {fileID: 982156611}
   - component: {fileID: 982156612}
+  - component: {fileID: 982156614}
   - component: {fileID: 982156613}
   m_Layer: 0
   m_Name: GameManager
@@ -263,6 +264,8 @@ MonoBehaviour:
   mobSpawner: {fileID: 982156612}
   generator: {fileID: 982156610}
   player: {fileID: 1577901858}
+  wallSpawner: {fileID: 0}
+  painter: {fileID: 0}
 --- !u!4 &982156609
 Transform:
   m_ObjectHideFlags: 0
@@ -291,7 +294,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomsGenerator: {fileID: 2650878253040082465}
-  painter: {fileID: 982156611}
 --- !u!114 &982156611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,12 +310,14 @@ MonoBehaviour:
   forestTilemap: {fileID: 369640453}
   decorationsTilemap: {fileID: 325193931}
   obstaclesTilemap: {fileID: 1944196912}
+  wallsTilemap: {fileID: 0}
   pathTile: {fileID: 11400000, guid: 46a9389ef90c3a8429a40a48840716ac, type: 2}
   lawnTile: {fileID: 11400000, guid: 0f6fef11efb59244e97fc5969e0eb7a7, type: 2}
   treeTile: {fileID: 11400000, guid: 3d930a9d4a7d79745af1c3ff7e6ec4bc, type: 2}
   stoneTile: {fileID: 11400000, guid: 4dd17b1980549b24f84e727cfb31b254, type: 2}
   grassTile: {fileID: 11400000, guid: 88043c1a9dc6f0c458af92a2eddc767a, type: 2}
   bushTile: {fileID: 11400000, guid: 604b3ae028d6fb84c996272896875154, type: 2}
+  wallTile: {fileID: 0}
   forestOffset: 3
   minMapPoint: -5
   maxMapPoint: 105
@@ -348,8 +352,20 @@ MonoBehaviour:
   mapSize: 100
   splitCount: 4
   splitRatioFrom: 0.25
-  splitRatioTo: 0
+  splitRatioTo: 0.75
   minRoomSize: 6
+--- !u!114 &982156614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982156607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52dcfc0b7c484912ae9f12ac02f2e210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1577901858 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5587184780340939216, guid: be0d6047c5c50b44482f3c27809bfa45,

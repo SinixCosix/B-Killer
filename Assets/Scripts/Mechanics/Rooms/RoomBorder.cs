@@ -1,8 +1,7 @@
 ﻿using Gameplay;
-using Mechanics.MapGeneration;
 using UnityEngine;
 
-namespace Mechanics
+namespace Mechanics.Rooms
 {
     public class RoomBorder : MonoBehaviour
     {
@@ -15,7 +14,6 @@ namespace Mechanics
             var player = col.gameObject.GetComponent<Player>();
             if (!player) return;
 
-            Debug.Log("Player has entered in room");
             PlayerTriggered?.Invoke();
         }
     }

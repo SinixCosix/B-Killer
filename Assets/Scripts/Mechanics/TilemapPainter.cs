@@ -13,6 +13,7 @@ namespace Mechanics
         public Tilemap forestTilemap;
         public Tilemap decorationsTilemap;
         public Tilemap obstaclesTilemap;
+        public Tilemap wallsTilemap;
 
         public TileBase pathTile;
         public TileBase lawnTile;
@@ -20,6 +21,7 @@ namespace Mechanics
         public TileBase stoneTile;
         public TileBase grassTile;
         public TileBase bushTile;
+        public TileBase wallTile;
 
         public uint forestOffset = 3;
         public int minMapPoint = -25;
@@ -45,9 +47,14 @@ namespace Mechanics
             }
         }
 
-        public void PaintWalls()
+        public void PaintMapWalls()
         {
             FillTileMap(obstaclesTilemap, lawnTile);
+        }
+
+        public void PaintRoomWall(Vector2Int position)
+        {
+            PaintTile(position, wallsTilemap, wallTile);
         }
 
         public void PaintForest(IEnumerable<Vector2Int> points)

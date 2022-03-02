@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mechanics.Rooms;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,6 +14,7 @@ namespace Mechanics.MapGeneration
         public HashSet<Vector2Int> Points { get; private set; }
 
         private Rect BaseRect { get; set; }
+        private bool _isPlayerEntered = false;
 
         public delegate void MethodContainer(Room room);
 
@@ -31,12 +33,23 @@ namespace Mechanics.MapGeneration
         private void InitBorder()
         {
             var roomBorder = gameObject.GetComponent<RoomBorder>();
-            roomBorder.PlayerTriggered += () =>
-                PlayerTriggered?.Invoke(this);
+            roomBorder.PlayerTriggered += InvokePlayerTriggered;
 
             var transform1 = roomBorder.transform;
             transform1.position = Rect.center;
             transform1.localScale = new Vector3(Rect.width, Rect.height);
+        }
+
+        private void InvokePlayerTriggered()
+        {
+            if (_isPlayerEntered 
+                || PlayerTriggered == null
+                || Id == 0)
+                return;
+
+            _isPlayerEntered = true;
+            PlayerTriggered.Invoke(this);
+            Debug.Log("Player has entered in room");
         }
 
         private void Reshape()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Mechanics
+namespace Mechanics.Spawners
 {
     public class BlockSpawner : MonoBehaviour
     {
