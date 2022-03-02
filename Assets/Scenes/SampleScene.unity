@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1839735485 &117606325 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 68809410044941139, guid: ec063129db248294faef52dda3362366,
+    type: 3}
+  m_PrefabInstance: {fileID: 2030479712483438288}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1839735485 &325193931 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 2030479712737066523, guid: ec063129db248294faef52dda3362366,
@@ -264,8 +270,8 @@ MonoBehaviour:
   mobSpawner: {fileID: 982156612}
   generator: {fileID: 982156610}
   player: {fileID: 1577901858}
-  wallSpawner: {fileID: 0}
-  painter: {fileID: 0}
+  wallSpawner: {fileID: 982156614}
+  painter: {fileID: 982156611}
 --- !u!4 &982156609
 Transform:
   m_ObjectHideFlags: 0
@@ -310,14 +316,14 @@ MonoBehaviour:
   forestTilemap: {fileID: 369640453}
   decorationsTilemap: {fileID: 325193931}
   obstaclesTilemap: {fileID: 1944196912}
-  wallsTilemap: {fileID: 0}
+  wallsTilemap: {fileID: 117606325}
   pathTile: {fileID: 11400000, guid: 46a9389ef90c3a8429a40a48840716ac, type: 2}
   lawnTile: {fileID: 11400000, guid: 0f6fef11efb59244e97fc5969e0eb7a7, type: 2}
   treeTile: {fileID: 11400000, guid: 3d930a9d4a7d79745af1c3ff7e6ec4bc, type: 2}
   stoneTile: {fileID: 11400000, guid: 4dd17b1980549b24f84e727cfb31b254, type: 2}
   grassTile: {fileID: 11400000, guid: 88043c1a9dc6f0c458af92a2eddc767a, type: 2}
   bushTile: {fileID: 11400000, guid: 604b3ae028d6fb84c996272896875154, type: 2}
-  wallTile: {fileID: 0}
+  wallTile: {fileID: 11400000, guid: a3b70c346df3b4f40b71b16ecfba0f4d, type: 2}
   forestOffset: 3
   minMapPoint: -5
   maxMapPoint: 105
@@ -391,6 +397,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 68798738548625063, guid: ec063129db248294faef52dda3362366,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 68798738548625063, guid: ec063129db248294faef52dda3362366,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 413196293
+      objectReference: {fileID: 0}
     - target: {fileID: 2030479711134841341, guid: ec063129db248294faef52dda3362366,
         type: 3}
       propertyPath: m_Layer

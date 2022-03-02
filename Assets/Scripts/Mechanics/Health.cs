@@ -17,7 +17,6 @@ namespace Mechanics
         public void ApplyDamage(int damage)
         {
             _currentHp -= damage;
-            Debug.Log($"Current hp: {_currentHp}");
             if (IsDead())
                 Death?.Invoke();
         }

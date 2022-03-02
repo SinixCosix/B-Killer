@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Gameplay;
 using Mechanics.MapGeneration;
+using Mechanics.Rooms;
 using Mechanics.Spawners;
 using UnityEngine;
 
@@ -61,6 +62,7 @@ namespace Mechanics
             {
                 room.PlayerTriggered += mobSpawner.Spawn;
                 room.PlayerTriggered += wallSpawner.Spawn;
+                room.MobsAreKilled += wallSpawner.Despawn;
             }
         }
 

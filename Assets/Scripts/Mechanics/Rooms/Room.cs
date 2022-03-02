@@ -1,64 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
-using Mechanics.Rooms;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Mechanics.MapGeneration
+namespace Mechanics.Rooms
 {
     public class Room : MonoBehaviour
     {
         public uint Id { get; private set; }
         public Rect Rect { get; private set; }
-        public float MinLength { get; private set; }
+
+        private float MinLength { get; set; }
+        private float MinBaseLength { get; set; }
+
         public HashSet<Vector2Int> Points { get; private set; }
+        public Walls Walls { get; private set; }
+
+        public int MobsCount
+        {
+            get => _mobsCount;
+            set
+            {
+                _mobsCount = value;
+                if (_mobsCount > 0) return;
+                
+                _mobsCount = 0;
+                MobsAreKilled?.Invoke(this);
+            }
+        }
 
         private Rect BaseRect { get; set; }
-        private bool _isPlayerEntered = false;
+        private bool _isPlayerEntered;
+        private int _mobsCount;
 
         public delegate void MethodContainer(Room room);
 
         public event MethodContainer PlayerTriggered;
+        public event MethodContainer MobsAreKilled;
 
-
+        public Room()
+        {
+            Walls = new Walls();
+        }
         public void Init(Rect baseRect, uint id)
         {
             BaseRect = baseRect;
             Id = id;
             Reshape();
+            InitMobsCount();
             CreatePoints();
             InitBorder();
-        }
-
-        private void InitBorder()
-        {
-            var roomBorder = gameObject.GetComponent<RoomBorder>();
-            roomBorder.PlayerTriggered += InvokePlayerTriggered;
-
-            var transform1 = roomBorder.transform;
-            transform1.position = Rect.center;
-            transform1.localScale = new Vector3(Rect.width, Rect.height);
-        }
-
-        private void InvokePlayerTriggered()
-        {
-            if (_isPlayerEntered 
-                || PlayerTriggered == null
-                || Id == 0)
-                return;
-
-            _isPlayerEntered = true;
-            PlayerTriggered.Invoke(this);
-            Debug.Log("Player has entered in room");
+            Walls.Init(this);
         }
 
         private void Reshape()
         {
+            MinBaseLength = Math.Min(BaseRect.width, BaseRect.height);
+            
             var gameManager = Settings.Instance;
-            var width = Random.Range(MinLength * gameManager.splitRatioFrom, BaseRect.width);
+            var width = Random.Range(MinBaseLength * gameManager.splitRatioFrom, BaseRect.width);
             if (width < gameManager.minRoomSize)
                 width = gameManager.minRoomSize;
-            var height = Random.Range(MinLength * gameManager.splitRatioFrom, BaseRect.height);
+            var height = Random.Range(MinBaseLength * gameManager.splitRatioFrom, BaseRect.height);
             if (height < gameManager.minRoomSize)
                 height = gameManager.minRoomSize;
             var x = Random.Range(BaseRect.x, BaseRect.xMax - width);
@@ -66,6 +69,12 @@ namespace Mechanics.MapGeneration
 
             Rect = new Rect(x, y, width, height);
             MinLength = Math.Min(Rect.width, Rect.height);
+
+        }
+
+        private void InitMobsCount()
+        {
+            MobsCount = (int)MinLength / 3;
         }
 
         private void CreatePoints()
@@ -100,6 +109,27 @@ namespace Mechanics.MapGeneration
             var term2 = Mathf.Pow(y - y0, 2) / (b * b);
 
             return term1 + term2;
+        }
+
+        private void InitBorder()
+        {
+            var roomBorder = gameObject.GetComponent<RoomBorder>();
+            roomBorder.PlayerTriggered += InvokePlayerTriggered;
+
+            var transform1 = roomBorder.transform;
+            transform1.position = Rect.center;
+            transform1.localScale = new Vector3(Rect.width, Rect.height);
+        }
+
+        private void InvokePlayerTriggered()
+        {
+            if (_isPlayerEntered 
+                || PlayerTriggered == null
+                || Id == 0)
+                return;
+
+            _isPlayerEntered = true;
+            PlayerTriggered.Invoke(this);
         }
     }
 }

@@ -54,3 +54,6 @@ TagManager:
   - name: Forest
     uniqueID: 3548631117
     locked: 0
+  - name: New Layer
+    uniqueID: 413196293
+    locked: 0
