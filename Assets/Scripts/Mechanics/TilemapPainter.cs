@@ -18,13 +18,12 @@ namespace Mechanics
 
         public TileBase pathTile;
         public TileBase lawnTile;
-        public TileBase treeTile;
+        public TileBase[] treeTile;
         public TileBase[] stoneTile;
         public TileBase[] grassTile;
         public TileBase bushTile;
         public TileBase wallTile;
 
-        public uint forestOffset = 3;
         public int minMapPoint = -25;
         public int maxMapPoint = 175;
 
@@ -34,6 +33,7 @@ namespace Mechanics
             forestTilemap.ClearAllTiles();
             decorationsTilemap.ClearAllTiles();
             obstaclesTilemap.ClearAllTiles();
+            wallsTilemap.ClearAllTiles();
         }
 
         public void PaintDecorations(IEnumerable<Vector2Int> points, IEnumerable<Vector2Int> paths)
@@ -69,7 +69,8 @@ namespace Mechanics
         public void PaintForest(IEnumerable<Vector2Int> points)
         {
             FillTileMap(forestTilemap, bushTile);
-            PaintTiles(points, forestTilemap, treeTile);
+            foreach (var point in points)
+                PaintTile(point, forestTilemap, GetRandomTile(treeTile));
         }
 
         private void FillTileMap(Tilemap tilemap, TileBase tile)

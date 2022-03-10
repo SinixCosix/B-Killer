@@ -8,6 +8,10 @@ namespace Gameplay
     public class PlayerController : MonoBehaviour
     {
         public Player player;
+        public Animator animator;
+        
+        private static readonly int Vertical = Animator.StringToHash("Vertical");
+        private static readonly int Horizontal = Animator.StringToHash("Horizontal");
 
         private void Start()
         {
@@ -19,7 +23,18 @@ namespace Gameplay
         {
             player.Shoot();
             player.CalculateMouseAngle();
-            player.Move();
+            Move();
+        }
+
+        private void Move()
+        {
+            var mH = Input.GetAxis("Horizontal");
+            var mV = Input.GetAxis("Vertical");
+            player.rigidbody.velocity = new Vector3(mH * player.speed,
+                mV * player.speed);
+            animator.SetInteger(Horizontal, (int)mH);
+            animator.SetInteger(Vertical, (int)mV);
+            
         }
 
         private void PlayerDeath()

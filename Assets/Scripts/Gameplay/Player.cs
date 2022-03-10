@@ -29,12 +29,7 @@ namespace Gameplay
             _mouseAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
         }
 
-        public override void Move()
-        {
-            var mH = Input.GetAxis ("Horizontal");
-            var mV = Input.GetAxis ("Vertical");
-            rigidbody.velocity = new Vector3 (mH * speed, mV * speed);
-        }
+        
 
    
     }
