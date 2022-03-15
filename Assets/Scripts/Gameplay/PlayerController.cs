@@ -10,8 +10,7 @@ namespace Gameplay
         public Player player;
         public Animator animator;
         
-        private static readonly int Vertical = Animator.StringToHash("Vertical");
-        private static readonly int Horizontal = Animator.StringToHash("Horizontal");
+        private static readonly int AnimatorMouseAngle = Animator.StringToHash("MouseAngle");
 
         private void Start()
         {
@@ -21,20 +20,28 @@ namespace Gameplay
 
         private void Update()
         {
-            player.Shoot();
             player.CalculateMouseAngle();
+            SetAnimatorProperties();
+            Shoot();
             Move();
         }
 
+        private void SetAnimatorProperties()
+        {
+            Debug.Log(player.MouseAngle);
+            animator.SetFloat(AnimatorMouseAngle, (player.MouseAngle));
+        }
+        private void Shoot()
+        {
+            if (Input.GetButtonDown("Fire1"))
+                player.Shoot();
+        }
         private void Move()
         {
             var mH = Input.GetAxis("Horizontal");
             var mV = Input.GetAxis("Vertical");
             player.rigidbody.velocity = new Vector3(mH * player.speed,
                 mV * player.speed);
-            animator.SetInteger(Horizontal, (int)mH);
-            animator.SetInteger(Vertical, (int)mV);
-            
         }
 
         private void PlayerDeath()

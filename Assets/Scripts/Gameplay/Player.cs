@@ -9,12 +9,12 @@ namespace Gameplay
         public Camera mainCamera;
 
         public new Rigidbody2D rigidbody;
-        private float _mouseAngle;
+
+        public float MouseAngle { get; private set; }
 
         public void Shoot()
         {
-            if (Input.GetButtonDown("Fire1"))
-                weapon.Shoot(_mouseAngle);
+            weapon.Shoot(MouseAngle);
         }
 
         private void Awake()
@@ -26,11 +26,7 @@ namespace Gameplay
         {
             var mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             var lookDirection = mousePosition - transform.position;
-            _mouseAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
+            MouseAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
         }
-
-        
-
-   
     }
 }
