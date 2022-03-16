@@ -12,10 +12,10 @@ namespace Gameplay
         
         private static readonly int AnimatorMouseAngle = Animator.StringToHash("MouseAngle");
 
-        private void Start()
+        private void Awake()
         {
             player = Player.Instance;
-            player.health.Death += PlayerDeath;
+            player.health.Death += OnPlayerDeath;
         }
 
         private void Update()
@@ -28,7 +28,6 @@ namespace Gameplay
 
         private void SetAnimatorProperties()
         {
-            Debug.Log(player.MouseAngle);
             animator.SetFloat(AnimatorMouseAngle, (player.MouseAngle));
         }
         private void Shoot()
@@ -44,16 +43,11 @@ namespace Gameplay
                 mV * player.speed);
         }
 
-        private void PlayerDeath()
+        private void OnPlayerDeath()
         {
             Debug.Log("Player death event");
-            Respawn();
-        }
-
-        public void Respawn()
-        {
-            var room = GameManager.Instance.Rooms[0];
-            player.transform.position = room.transform.position;
+            
+            GameManager.Instance.CreateMap();
             player.health.Heal();
         }
     }

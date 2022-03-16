@@ -13,11 +13,12 @@ namespace Mechanics
     {
         public static GameManager Instance;
 
+        public TilemapPainter painter;
+        public PlayerController player;
+
         private MobSpawner _mobSpawner;
         private RoomWallSpawner _wallSpawner;
         private MapGenerator _generator;
-        public TilemapPainter painter;
-        public PlayerController player;
 
         public List<Room> Rooms { get; set; }
 
@@ -32,6 +33,8 @@ namespace Mechanics
             var spawner = GameObject.Find("Spawner");
             _mobSpawner = spawner.GetComponent<MobSpawner>();
             _wallSpawner = spawner.GetComponent<RoomWallSpawner>();
+            
+            
         }
 
         private void Start()
@@ -54,7 +57,7 @@ namespace Mechanics
                 _time -= Time.deltaTime;
         }
 
-        private void CreateMap()
+        public void CreateMap()
         {
             Clear();
             
@@ -80,14 +83,25 @@ namespace Mechanics
         {
             _generator.Clear();
             _mobSpawner.Clear();
-            Rooms?.Clear();
             painter.Clear();
+            ClearRooms();
+        }
+
+        private void ClearRooms()
+        {
+            if (Rooms == null) return;
+
+            Debug.Log(Rooms.Count);
+            foreach (var room in Rooms)
+                Destroy(room.gameObject);
+            Rooms.Clear();
         }
 
         private void SpawnPlayer()
         {
             Debug.Log(player);
-            player.Respawn();
+            var room = Rooms[0];
+            player.transform.position = room.transform.position;
         }
     }
 }

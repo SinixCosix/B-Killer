@@ -7,7 +7,6 @@ namespace Gameplay.Weapon
 {
     public class Bullet : Entity
     {
-        private float x;
         private void Update()
         {
             transform.Rotate(0,0,750 * Time.deltaTime);
@@ -23,6 +22,9 @@ namespace Gameplay.Weapon
 
             var room = other.gameObject.GetComponent<Room>();
             if (room != null) return;
+
+            var bullet = other.gameObject.GetComponent<Bullet>();
+            if (bullet != null) return;
 
             Destroy(gameObject);
         }
