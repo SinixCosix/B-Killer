@@ -27,10 +27,10 @@ namespace Mechanics.MapGeneration
 
             var settings = Settings.Instance;
             var width1 = splitByVertical
-                ? Random.Range(rect.width * settings.splitRatioFrom, rect.width * settings.splitRatioTo)
+                ? Random.Range(rect.width * settings.splitRatioFrom, rect.width * settings.SplitRatioTo)
                 : rect.width;
             var height1 = splitByHorizontal
-                ? Random.Range(rect.height * settings.splitRatioFrom, rect.height * settings.splitRatioTo)
+                ? Random.Range(rect.height * settings.splitRatioFrom, rect.height * settings.SplitRatioTo)
                 : rect.height;
 
             // ReSharper disable TailRecursiveCall

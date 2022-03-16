@@ -24,9 +24,6 @@ namespace Mechanics
         public TileBase bushTile;
         public TileBase wallTile;
 
-        public int minMapPoint = -25;
-        public int maxMapPoint = 175;
-
         public void Clear()
         {
             floorTilemap.ClearAllTiles();
@@ -73,10 +70,10 @@ namespace Mechanics
                 PaintTile(point, forestTilemap, GetRandomTile(treeTile));
         }
 
-        private void FillTileMap(Tilemap tilemap, TileBase tile)
+        private static void FillTileMap(Tilemap tilemap, TileBase tile)
         {
-            for (var i = minMapPoint; i < maxMapPoint; ++i)
-            for (var j = minMapPoint; j < maxMapPoint; ++j)
+            for (var i = Settings.Instance.MinMapPoint; i < Settings.Instance.MaxMapPoint; ++i)
+            for (var j = Settings.Instance.MinMapPoint; j < Settings.Instance.MaxMapPoint; ++j)
             {
                 var position = new Vector2Int(i, j);
                 PaintTile(position, tilemap, tile);
