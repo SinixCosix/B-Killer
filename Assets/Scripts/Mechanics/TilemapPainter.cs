@@ -21,7 +21,6 @@ namespace Mechanics
         public TileBase[] treeTile;
         public TileBase[] stoneTile;
         public TileBase[] grassTile;
-        public TileBase bushTile;
         public TileBase wallTile;
 
         public void Clear()
@@ -65,7 +64,6 @@ namespace Mechanics
 
         public void PaintForest(IEnumerable<Vector2Int> points)
         {
-            FillTileMap(forestTilemap, bushTile);
             foreach (var point in points)
                 PaintTile(point, forestTilemap, GetRandomTile(treeTile));
         }
