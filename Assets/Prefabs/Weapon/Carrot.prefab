@@ -148,3 +148,6 @@ MonoBehaviour:
   speed: 20
   health: {fileID: 0}
   damage: 1
+  hitEffect: {fileID: 5303189390397400990, guid: 3870b21aad1a8644394195edc2d4de6e,
+    type: 3}
+  animator: {fileID: 0}

@@ -5,8 +5,11 @@ using UnityEngine;
 
 namespace Gameplay.Weapon
 {
+    
     public class Bullet : Entity
     {
+        public GameObject hitEffect;
+        
         private void Update()
         {
             transform.Rotate(0,0,750 * Time.deltaTime);
@@ -25,7 +28,13 @@ namespace Gameplay.Weapon
 
             var bullet = other.gameObject.GetComponent<Bullet>();
             if (bullet != null) return;
+            
+            Explode();
+        }
 
+        private void Explode()
+        {
+            Instantiate(hitEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
