@@ -6,14 +6,14 @@ namespace Ui
     public class MainMenu : MonoBehaviour
     {
         public void PlayGame()
-        {
-            var nextScene = SceneManager.GetActiveScene().buildIndex + 1;
-            SceneManager.LoadScene(nextScene);
+        { 
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("Game");
         }
 
         public void QuitGame()
         {
-            Debug.Log("Quit game");
+            Debug.Log("Quitting game...");
             Application.Quit();
         }
         

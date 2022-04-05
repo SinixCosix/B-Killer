@@ -1,6 +1,7 @@
 ﻿using System;
 using Mechanics;
 using Mechanics.MapGeneration;
+using Ui;
 using UnityEngine;
 
 namespace Gameplay
@@ -20,6 +21,9 @@ namespace Gameplay
 
         private void Update()
         {
+            if (PauseMenu.IsGamePaused)
+                return;
+            
             player.CalculateMouseAngle();
             SetAnimatorProperties();
             Shoot();

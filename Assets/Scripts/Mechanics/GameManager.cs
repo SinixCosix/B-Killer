@@ -33,8 +33,6 @@ namespace Mechanics
             var spawner = GameObject.Find("Spawner");
             _mobSpawner = spawner.GetComponent<MobSpawner>();
             _wallSpawner = spawner.GetComponent<RoomWallSpawner>();
-            
-            
         }
 
         private void Start()
