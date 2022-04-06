@@ -11,7 +11,7 @@ namespace Ui
         private void Update()
         {
             if (!Input.GetKeyDown(KeyCode.Escape)) return;
-        
+
             if (IsGamePaused)
                 Resume();
             else
@@ -35,7 +35,7 @@ namespace Ui
         public void LoadMainMenu()
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene("StartMenu");
+            SceneManager.LoadScene("MainMenu");
         }
 
         public void Quit()
