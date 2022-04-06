@@ -23,6 +23,7 @@ namespace Mechanics.MapGeneration
 
         public void Generate()
         {
+            var rooms = GameManager.Instance.Rooms;
             roomsGenerator.Generate();
             
             PathsGenerator.Generate();

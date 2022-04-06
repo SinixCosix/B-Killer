@@ -1,17 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using Mechanics;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Ui
 {
-    public class GameOverMenu : MonoBehaviour
+    public class GameOverMenu : Menu
     {
-        public void Restart()
+        private void Awake()
         {
-            SceneManager.LoadScene("Game");
+            GameManager.Instance.player.player.health.Death += Pause;
         }
 
+        public void Restart()
+        {
+            Resume();
+            GameManager.Instance.CreateMap();
+        }
+        
         public void LoadMainMenu()
-        { 
+        {
+            Resume();
             SceneManager.LoadScene("MainMenu");
         }
     }

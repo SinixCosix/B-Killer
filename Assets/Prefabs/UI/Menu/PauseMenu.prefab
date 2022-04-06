@@ -561,4 +561,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7e40cfba0282a48bb215c8e3d104a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenuUi: {fileID: 1766564114989934084}
+  panel: {fileID: 1766564114989934084}

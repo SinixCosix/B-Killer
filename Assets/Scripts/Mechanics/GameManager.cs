@@ -11,10 +11,12 @@ namespace Mechanics
 {
     public class GameManager : MonoBehaviour
     {
+        public static bool IsGamePaused { get; private set; }
         public static GameManager Instance;
 
         public TilemapPainter painter;
         public PlayerController player;
+
 
         private MobSpawner _mobSpawner;
         private RoomWallSpawner _wallSpawner;
@@ -29,6 +31,7 @@ namespace Mechanics
 
         private void Awake()
         {
+            Debug.Log("awake");
             _generator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
             var spawner = GameObject.Find("Spawner");
             _mobSpawner = spawner.GetComponent<MobSpawner>();
@@ -37,6 +40,7 @@ namespace Mechanics
 
         private void Start()
         {
+            Debug.Log("start");
             _time = Settings.Instance.time;
             CreateMap();
         }
@@ -58,7 +62,6 @@ namespace Mechanics
         public void CreateMap()
         {
             Clear();
-            
             _generator.Generate();
             SubscribeRooms();
             SpawnPlayer();
@@ -66,8 +69,15 @@ namespace Mechanics
             _generator.Paint();
         }
 
+        private void Subscribe()
+        {
+            // player.
+            SubscribeRooms();
+        }
+
         private void SubscribeRooms()
         {
+            if (Rooms == null) return;
             foreach (var room in Rooms)
             {
                 room.PlayerTriggered += _mobSpawner.Spawn;
@@ -89,7 +99,6 @@ namespace Mechanics
         {
             if (Rooms == null) return;
 
-            Debug.Log(Rooms.Count);
             foreach (var room in Rooms)
                 Destroy(room.gameObject);
             Rooms.Clear();
@@ -97,9 +106,26 @@ namespace Mechanics
 
         private void SpawnPlayer()
         {
-            Debug.Log(player);
             var room = Rooms[0];
             player.transform.position = room.transform.position;
+        }
+
+        public static void Pause()
+        {
+            Time.timeScale = 0f;
+            IsGamePaused = true;
+        }
+
+        public static void Resume()
+        {
+            Time.timeScale = 1f;
+            IsGamePaused = false;
+        }
+
+        public static void Quit()
+        {
+            Debug.Log("Quitting game...");
+            Application.Quit();
         }
     }
 }

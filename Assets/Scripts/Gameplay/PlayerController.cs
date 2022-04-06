@@ -21,7 +21,7 @@ namespace Gameplay
 
         private void Update()
         {
-            if (PauseMenu.IsGamePaused)
+            if (GameManager.IsGamePaused)
                 return;
             
             player.CalculateMouseAngle();
@@ -50,9 +50,9 @@ namespace Gameplay
         private void OnPlayerDeath()
         {
             Debug.Log("Player death event");
-            
-            GameManager.Instance.CreateMap();
+
             player.health.Heal();
+            // GameManager.Instance.CreateMap();
         }
     }
 }

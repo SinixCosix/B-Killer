@@ -11,11 +11,9 @@ namespace Mechanics.MapGeneration
         public void Generate()
         {
             var rects = BinarySpacePartitionTree.Split().ToList();
-            var rooms = rects.Select((rect, i) 
+            GameManager.Instance.Rooms = rects.Select((rect, i) 
                 => CreateRoom(rect, (uint)i))
                 .ToList();
-
-            GameManager.Instance.Rooms = rooms;
         }
 
         private Room CreateRoom(Rect rect, uint id)
