@@ -26,6 +26,18 @@ TextureImporter:
   - first:
       213: 7418867011399055208
     second: bone_0
+  - first:
+      213: -4029819251187114856
+    second: weapon_0
+  - first:
+      213: -2505125261248690692
+    second: weapon_1
+  - first:
+      213: -1022324140503699289
+    second: weapon_2
+  - first:
+      213: 946132551445127754
+    second: weapon_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -92,7 +104,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -104,7 +116,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -115,85 +127,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: carrot
+      name: weapon_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 33
+        y: 29
         width: 135
         height: 110
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d881b06d57893f820800000000000000
-      internalID: 2950869812727453837
+      spriteID: 89c16ffedb43318c0800000000000000
+      internalID: -4029819251187114856
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: carrot_ice
+      name: weapon_1
       rect:
         serializedVersion: 2
         x: 147
-        y: 22
+        y: 18
         width: 134
         height: 111
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a16bf0a29fe4903b0800000000000000
-      internalID: -5545814634070559206
+      spriteID: cf50a6df8d10c3dd0800000000000000
+      internalID: -2505125261248690692
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: carrot_slime
+      name: weapon_2
       rect:
         serializedVersion: 2
         x: 294
-        y: 16
+        y: 12
         width: 134
         height: 123
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88666fbbfb0b6d350800000000000000
-      internalID: 6041210287702828680
+      spriteID: 7a078f75c99ffc1f0800000000000000
+      internalID: -1022324140503699289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bone_0
+      name: weapon_3
       rect:
         serializedVersion: 2
-        x: 443
+        x: 464
         y: 0
         width: 81
         height: 135
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 867fd427d3c15f660800000000000000
-      internalID: 7418867011399055208
+      spriteID: a42225fea86512d00800000000000000
+      internalID: 946132551445127754
       vertices: []
       indices: 
       edges: []
