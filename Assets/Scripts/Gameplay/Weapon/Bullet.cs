@@ -1,5 +1,4 @@
-﻿using System;
-using Gameplay.Enemy;
+﻿using Gameplay.Enemies;
 using Mechanics.Rooms;
 using UnityEngine;
 
@@ -17,7 +16,7 @@ namespace Gameplay.Weapon
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var enemy = other.gameObject.GetComponent<AbstractEnemy>();
+            var enemy = other.gameObject.GetComponent<Enemy>();
             if (enemy != null) enemy.ApplyDamage(damage);
 
             var player = other.gameObject.GetComponent<Player>();

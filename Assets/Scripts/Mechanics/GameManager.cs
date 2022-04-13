@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay;
-using Gameplay.Enemy;
+using Gameplay.Enemies;
 using Mechanics.MapGeneration;
 using Mechanics.Rooms;
 using Mechanics.Spawners;
