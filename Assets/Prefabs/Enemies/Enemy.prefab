@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7,
     type: 3}
-  m_Color: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -130,8 +130,6 @@ MonoBehaviour:
   speed: 5
   health: {fileID: -1558671152997453111}
   damage: 1
-  minPlayerDistance: 5
-  minTargetDistance: 0.01
 --- !u!114 &-1558671152997453111
 MonoBehaviour:
   m_ObjectHideFlags: 0
