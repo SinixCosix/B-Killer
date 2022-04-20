@@ -9,21 +9,21 @@ namespace Mechanics
 
         public delegate void MethodContainer();
         public event MethodContainer Death;
-        
-        private float _currentHp;
 
-        private void Awake() => _currentHp = maxHp;
+        public float CurrentHp { get; private set; }
+
+        private void Awake() => CurrentHp = maxHp;
 
         public void ApplyDamage(int damage)
         {
-            _currentHp -= damage;
+            CurrentHp -= damage;
             if (IsDead())
                 Death?.Invoke();
         }
 
-        private bool IsDead() => _currentHp < 0.01;
+        private bool IsDead() => CurrentHp < 0.01;
 
         public void Heal()
-            => _currentHp = maxHp;
+            => CurrentHp = maxHp;
     }
 }

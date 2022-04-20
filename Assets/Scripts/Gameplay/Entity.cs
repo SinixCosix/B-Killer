@@ -20,7 +20,7 @@ namespace Gameplay
         }
 
         // TODO: move to PlayerController
-        public void ApplyDamage(int value)
+        public virtual void ApplyDamage(int value)
         {
             health.ApplyDamage(value);
         }
