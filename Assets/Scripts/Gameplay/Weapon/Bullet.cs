@@ -1,4 +1,5 @@
-﻿using Gameplay.Enemies;
+﻿using Core;
+using Gameplay.Enemies;
 using Mechanics.Rooms;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Gameplay.Weapon
     public class Bullet : Entity
     {
         public GameObject hitEffect;
+        public GameObject soundEffect;
         
         private void Update()
         {
@@ -33,7 +35,9 @@ namespace Gameplay.Weapon
 
         private void Explode()
         {
-            Instantiate(hitEffect, transform.position, Quaternion.identity);
+            var position = transform.position;
+            Instantiate(hitEffect, position, Quaternion.identity);
+            Instantiate(soundEffect, position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Core;
 using Mechanics;
 using Mechanics.MapGeneration;
 using Ui;
@@ -41,10 +42,14 @@ namespace Gameplay
         }
         private void Move()
         {
-            var mH = Input.GetAxis("Horizontal");
-            var mV = Input.GetAxis("Vertical");
-            player.rigidbody.velocity = new Vector3(mH * player.speed,
-                mV * player.speed);
+            var direction = new Vector2(Input.GetAxis("Horizontal"),
+                                        Input.GetAxis("Vertical"));
+            player.rigidbody.velocity = direction * player.speed;
+            
+            // if (player.rigidbody.velocity != Vector2.zero)
+            // AudioManager.Instance.Play("Player Footsteps");
+            // else
+            // AudioManager.Instance.Pause("Player Footsteps");
         }
 
         private void OnPlayerDeath()
