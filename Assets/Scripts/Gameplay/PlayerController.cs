@@ -46,10 +46,10 @@ namespace Gameplay
                                         Input.GetAxis("Vertical"));
             player.rigidbody.velocity = direction * player.speed;
             
-            // if (player.rigidbody.velocity != Vector2.zero)
-            // AudioManager.Instance.Play("Player Footsteps");
-            // else
-            // AudioManager.Instance.Pause("Player Footsteps");
+            if (player.rigidbody.velocity != Vector2.zero)
+                AudioManager.Instance.Play("Player Footsteps");
+            else
+                AudioManager.Instance.Pause("Player Footsteps");
         }
 
         private void OnPlayerDeath()

@@ -62,10 +62,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3099931646062969751, guid: d85a42f4ed3c434498cf60833ca036b9,
+        type: 3}
+      propertyPath: source
+      value: 
+      objectReference: {fileID: 2794668366010551201}
     - target: {fileID: 5985592814815129520, guid: d85a42f4ed3c434498cf60833ca036b9,
         type: 3}
       propertyPath: m_Name
       value: ExplosionSoundEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6678336835444088795, guid: d85a42f4ed3c434498cf60833ca036b9,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.357
       objectReference: {fileID: 0}
     - target: {fileID: 6678336835444088795, guid: d85a42f4ed3c434498cf60833ca036b9,
         type: 3}
@@ -79,3 +89,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d85a42f4ed3c434498cf60833ca036b9, type: 3}
+--- !u!82 &2794668366010551201 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6678336835444088795, guid: d85a42f4ed3c434498cf60833ca036b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8819912728733389946}
+  m_PrefabAsset: {fileID: 0}

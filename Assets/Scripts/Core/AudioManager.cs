@@ -30,7 +30,11 @@ namespace Core
         public void Play(string soundName)
         {
             var sound = FindSound(soundName);
-            sound?.source.Play();
+            if (sound == null)
+                return;
+            
+            if (!sound.source.isPlaying)
+                sound.source.Play();
         }
         
         public void Pause(string soundName)
